@@ -1,0 +1,87 @@
+
+# Ctrl + Alt + R
+
+@baseUrl = http://localhost:3000/api
+
+### Login user
+
+POST {{baseUrl}}/user/login
+content-type: application/json
+
+{
+  "email": "bebrajkovic@gmail.com",
+  "password": "654321"
+}
+
+### Login user
+
+POST {{baseUrl}}/user/login
+content-type: application/json
+
+{
+  "email": "ivbrajkovic@gmail.com",
+  "password": "123456"
+}
+
+### New user
+
+POST {{baseUrl}}/user/register
+content-type: application/json
+
+{
+  "email": "ivbrajkovic@gmail.com",
+  "name": "ivan",
+  "lastname": "brajković",
+  "nickname": "ivbrajkovic",
+  "password": "123456",
+  "confirmPassword": "123456"
+}
+
+###
+
+POST {{baseUrl}}/user/register
+content-type: application/json
+
+{
+  "email": "bebrajkovic@gmail.com",
+  "name": "belma",
+  "lastname": "brajković",
+  "nickname": "bebrajkovic",
+  "password": "654321",
+  "confirmPassword": "654321"
+}
+
+### Get user
+
+GET {{baseUrl}}/user/bebrajkovic@gmail.com
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlYnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4NjI0NTYwNywiZXhwIjoxNTg2MjUyODA3fQ.4IKbCOzwCMs4xaao8Y5ExNd6lewDSLjuZ0IRsMslkXM
+
+
+### Delete user
+
+DELETE {{baseUrl}}/user/ivbrajkovic@gmail.com
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlYnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4NjI0NTYwNywiZXhwIjoxNTg2MjUyODA3fQ.4IKbCOzwCMs4xaao8Y5ExNd6lewDSLjuZ0IRsMslkXM
+
+### Insert data
+
+POST {{baseUrl}}/data
+content-type: application/json
+
+{
+  "arduino": "0",
+  "co2": "0",
+  "humidity": "0",
+  "temperature": "0"
+}
+
+### Insert data
+
+POST {{baseUrl}}/data
+content-type: application/json
+
+{
+  "co2": "0",
+  "humidity": "0",
+  "temperature": "0"
+}
+

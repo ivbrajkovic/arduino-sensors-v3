@@ -1,5 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# Sqlite3, depend: npm install --global windows-build-tools
+
 # dependencies
 /node_modules
 /.pnp

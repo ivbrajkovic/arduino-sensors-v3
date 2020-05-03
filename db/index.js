@@ -30,29 +30,19 @@ class DB extends Database {
     return this.exec(queries);
   }
 
-  data = {
-    /**
-     * Insert sensor data into table
-     * @param {Array} params Sensor data
-     */
-    insert: params => {
-      params.push(new Date().toISOString());
-      // const query = sql.setParams(sql.queries.data.insert, params);
-      return this.run(sql.queries.data.insert, params);
-    }
-  };
+  /*********************************************************
+   * USER
+   *********************************************************/
 
   users = {
-    /**
+    /*********************************************************
      * Find user by email
      * @param {Array} params Sensor data
      */
-    select: email => {
-      return this.get(sql.queries.user.select, email);
-    },
+    select: email => this.get(sql.queries.user.select, email),
 
-    /**
-     * Insert new user database
+    /*********************************************************
+     * Insert new user into database
      * @param {Array} params User data
      */
     insert: params => {
@@ -60,13 +50,50 @@ class DB extends Database {
       return this.run(sql.queries.user.insert, params);
     },
 
-    /**
-     * Insert new user database
+    /*********************************************************
+     * Update user into database
      * @param {Array} params User data
      */
-    delete: email => {
-      return this.run(sql.queries.user.delete, email);
-    }
+    update: params => this.run(sql.queries.user.update, params),
+
+    /*********************************************************
+     * Delete user by email from database
+     * @param {Array} params User data
+     */
+    delete: email => this.run(sql.queries.user.delete, email),
+
+    /*********************************************************
+     * Delete all users from database
+     */
+    deleteAll: () => this.run(sql.queries.user['delete-all'])
+  };
+
+  /*********************************************************
+   * DATA
+   *********************************************************/
+
+  data = {
+    /*********************************************************
+     * Insert sensor data into table
+     * @param {Array} params Sensor data
+     */
+    insert: params => {
+      params.push(new Date().toISOString());
+      // const query = sql.setParams(sql.queries.data.insert, params);
+      return this.run(sql.queries.data.insert, params);
+    },
+
+    /*********************************************************
+     * Select last nth rows from sensor data
+     * @param {Array} params Number of rows to select
+     */
+    selectLastNRows: params =>
+      this.all(sql.queries.data['select-last-n-rows'], params),
+
+    /*********************************************************
+     * Delete all sensor data from database
+     */
+    deleteAll: () => this.run(sql.queries.data['delete-all'])
   };
 }
 

@@ -5,7 +5,7 @@
 // Express validator middleware
 const { param, body } = require('express-validator');
 
-/**
+/**************************************************************
  * Check email field
  */
 const checkEmail = reqObj =>
@@ -18,8 +18,9 @@ const checkEmail = reqObj =>
     .withMessage('Email is invalid')
     .bail()
     .customSanitizer(value => value.toLowerCase());
+/**************************************************************/
 
-/**
+/**************************************************************
  * Check text field
  @param {string} name Field name
  */
@@ -36,8 +37,9 @@ const checkField = name =>
     .withMessage('Field lenght is invalid')
     .bail()
     .customSanitizer(value => value.toLowerCase());
+/**************************************************************/
 
-/**
+/**************************************************************
  * Check password field
  */
 const checkPassword = body('password')
@@ -49,8 +51,9 @@ const checkPassword = body('password')
   .bail()
   .isLength({ min: 4, max: 20 })
   .withMessage('Password length is invalid');
+/**************************************************************
 
-/**
+/**************************************************************
  * Check confirm password field
  */
 const checkCnfirmPassword = body('confirmPassword')
@@ -66,8 +69,9 @@ const checkCnfirmPassword = body('confirmPassword')
     }
     return true;
   });
+/**************************************************************
 
-/**
+/**************************************************************
  * Export valitadion object
  */
 module.exports = {
@@ -79,7 +83,7 @@ module.exports = {
     checkEmail(body('email')),
     checkField('name'),
     checkField('lastname'),
-    checkField('nickname'),
+    checkField('username'),
     checkPassword,
     checkCnfirmPassword
   ],

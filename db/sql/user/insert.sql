@@ -2,7 +2,7 @@ INSERT INTO 'users' (
   email, 
   name, 
   lastname,
-  nickname,
+  username,
   password,
   date
 )

@@ -24,20 +24,23 @@ const { user: userValidator, validate } = require('./validators');
 // Login user route
 router.post(
   '/login',
-  validate(userValidator.login),
+  asyncWrapper(validate(userValidator.login)),
   asyncWrapper(AuthController.loginUser)
 );
 
 // Register user route
 router.post(
   '/register',
-  validate(userValidator.register),
+  asyncWrapper(validate(userValidator.register)),
   asyncWrapper(AuthController.registerUser)
 );
 
 /***********************************************
  * PRIVATE ROUTES
  ***********************************************/
+
+// Get user route
+router.get('/verify', privateRoute, asyncWrapper(UserController.verifyToken));
 
 // Get user route
 router.get(
@@ -47,6 +50,14 @@ router.get(
   asyncWrapper(UserController.getUser)
 );
 
+// Update user route
+router.put(
+  '/',
+  privateRoute,
+  validate(userValidator.register),
+  asyncWrapper(UserController.updateUserByEmail)
+);
+
 // Delete user route
 router.delete(
   '/:email',
@@ -54,6 +65,9 @@ router.delete(
   validate(userValidator.delete),
   asyncWrapper(UserController.deleteUser)
 );
+
+// Delete all users route
+router.delete('/', privateRoute, asyncWrapper(UserController.deleteAllUsers));
 
 // Export router
 module.exports = router;

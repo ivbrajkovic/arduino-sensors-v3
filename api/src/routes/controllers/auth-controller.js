@@ -12,7 +12,7 @@ const config = require('@api/config');
 const { AuthService, UserService } = require('@api/services');
 
 module.exports = class AuthController {
-  /**
+  /**************************************************************
    * Login user
    @param {*} user Client req
    @returns {*} User token and status code
@@ -35,21 +35,21 @@ module.exports = class AuthController {
     debug(`JWT for ${email} created successfully`);
 
     // Return user object with token
-    return { status: 201, data: { user, token } };
+    return { user, token };
   };
 
-  /**
+  /**************************************************************
    * Register new user
    @param {*} user Client req
    @returns {*} User token and status code
    */
   static registerUser = async req => {
-    const { email, name, lastname, nickname, password } = req.body;
+    const { email, name, lastname, username, password } = req.body;
     const { user } = await UserService.registerNewUser({
       email,
       name,
       lastname,
-      nickname,
+      username,
       password
     });
 
@@ -59,6 +59,6 @@ module.exports = class AuthController {
     });
 
     // Return user object with token
-    return { status: 201, data: { user, token } };
+    return { user, token };
   };
 };

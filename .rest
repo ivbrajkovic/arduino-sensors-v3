@@ -9,7 +9,7 @@ POST {{baseUrl}}/user/login
 content-type: application/json
 
 {
-  "email": "bebrajkovic@gmail.com",
+  "email1": "bebrajkovic@gmail.com",
   "password": "654321"
 }
 
@@ -23,7 +23,7 @@ content-type: application/json
   "password": "123456"
 }
 
-### New user
+### Register new user
 
 POST {{baseUrl}}/user/register
 content-type: application/json
@@ -32,21 +32,36 @@ content-type: application/json
   "email": "ivbrajkovic@gmail.com",
   "name": "ivan",
   "lastname": "brajković",
-  "nickname": "ivbrajkovic",
+  "username": "ivbrajkovic",
   "password": "123456",
   "confirmPassword": "123456"
 }
 
-###
+### Register new user
 
-POST {{baseUrl}}/user/register
+POST {{baseUrl}}/user/signup
 content-type: application/json
 
 {
   "email": "bebrajkovic@gmail.com",
   "name": "belma",
   "lastname": "brajković",
-  "nickname": "bebrajkovic",
+  "username": "bebrajkovic",
+  "password": "654321",
+  "confirmPassword": "654321"
+}
+
+### Update user
+
+PUT {{baseUrl}}/user/
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Iml2YnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4ODQxNDMxOCwiZXhwIjoxNTg4NDIxNTE4fQ.SWXOILTCMJDu2doQ0PhYOBuQyMMi7Nf12K2Pk4wEFxI
+
+{
+  "email": "bebrajkovic@gmail.com",
+  "name": "belma",
+  "lastname": "brajković",
+  "username": "bebrajkovic",
   "password": "654321",
   "confirmPassword": "654321"
 }
@@ -54,13 +69,22 @@ content-type: application/json
 ### Get user
 
 GET {{baseUrl}}/user/bebrajkovic@gmail.com
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlYnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4NjI0NTYwNywiZXhwIjoxNTg2MjUyODA3fQ.4IKbCOzwCMs4xaao8Y5ExNd6lewDSLjuZ0IRsMslkXM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Iml2YnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4ODQyNDM3NSwiZXhwIjoxNTg4NDMxNTc1fQ.iPWUWceEtrjec2hKdze-i2xoVVXwKp7yTm1peURrVKA
 
+### Verify user
+
+GET {{baseUrl}}/user/verify
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Iml2YnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4ODQzNDE3NiwiZXhwIjoxNTg4NDQxMzc2fQ.xzxs9HDuLGXu7aph4guQEAi0Dai4yyi1bUDicvyxauY
 
 ### Delete user
 
 DELETE {{baseUrl}}/user/ivbrajkovic@gmail.com
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlYnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4NjI0NTYwNywiZXhwIjoxNTg2MjUyODA3fQ.4IKbCOzwCMs4xaao8Y5ExNd6lewDSLjuZ0IRsMslkXM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlYnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4ODM0ODAwNiwiZXhwIjoxNTg4MzU1MjA2fQ.bUP1ovSxCAFxz9q-FT8Z3LuKmR0ZLBWC2S0aaeBUWQg
+
+### Delete all users
+
+DELETE {{baseUrl}}/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Iml2YnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4ODQxNDMxOCwiZXhwIjoxNTg4NDIxNTE4fQ.SWXOILTCMJDu2doQ0PhYOBuQyMMi7Nf12K2Pk4wEFxI
 
 ### Insert data
 
@@ -68,20 +92,18 @@ POST {{baseUrl}}/data
 content-type: application/json
 
 {
-  "arduino": "0",
+  "arduino": "2",
   "co2": "0",
   "humidity": "0",
   "temperature": "0"
 }
 
-### Insert data
+### Get last nth data
 
-POST {{baseUrl}}/data
-content-type: application/json
+GET {{baseUrl}}/data/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Iml2YnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4ODUyOTM2NiwiZXhwIjoxNTg4NTM2NTY2fQ.MvC8iep0eBbXrAAWI8hAlWLLMY_haXskLqMMVQuXSbc
 
-{
-  "co2": "0",
-  "humidity": "0",
-  "temperature": "0"
-}
+### Delete all data
 
+DELETE {{baseUrl}}/data
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlYnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4ODM0ODAwNiwiZXhwIjoxNTg4MzU1MjA2fQ.bUP1ovSxCAFxz9q-FT8Z3LuKmR0ZLBWC2S0aaeBUWQg

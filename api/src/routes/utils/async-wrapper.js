@@ -5,10 +5,14 @@
  */
 module.exports = fn => async (req, res, next) => {
   try {
-    const { status, data } = await fn(req);
+    // Await for data
+    const data = await fn(req, res, next);
+    console.log('data', data);
 
-    // Send success status
-    res.status(status).json({ success: true, data: data });
+    if (data)
+      // Send success status
+      res.status(200).json({ status: 'ok', ...data });
+    else next();
   } catch (error) {
     // Call default error handler
     next(error);

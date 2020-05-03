@@ -3,27 +3,31 @@
  */
 
 // Express validator middleware
-const { body } = require('express-validator');
+const { body, param } = require('express-validator');
 
 /**
  * Check field
  */
-const checkField = name =>
-  body(name)
+const checkField = object =>
+  object
     .notEmpty()
     .withMessage('Field must not be empty')
     .bail()
     .isNumeric({ no_symbols: true })
-    .withMessage('Field contain only number');
+    .withMessage('Field must contain only number');
 
 /**
  * Export valitadion object
  */
 module.exports = {
+  // Check number of row param
+  selectLastNRows: [checkField(param('n'))],
+
+  // Check value to insert
   insertSensorData: [
-    checkField('arduino'),
-    checkField('co2'),
-    checkField('humidity'),
-    checkField('temperature')
+    checkField(body('arduino')),
+    checkField(body('co2')),
+    checkField(body('humidity')),
+    checkField(body('temperature'))
   ]
 };

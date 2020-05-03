@@ -6,7 +6,7 @@
 const { validationResult } = require('express-validator');
 
 // Errors
-const { errorMessages, ErrorException } = require('@api/errors');
+const { ErrorHandler, errorMessages } = require('@api/errors');
 
 // Validation wrapper
 module.exports = validations => {
@@ -19,15 +19,16 @@ module.exports = validations => {
 
     // Validate data and continue if no errors found
     const errors = validationResult(req);
-    if (errors.isEmpty()) return next();
 
-    // Format error message
-    const error = new ErrorException({
-      ...errorMessages.DATA_REQUEST_INVALID,
-      errors: errors.array()
-    });
+    // Throw if errors
+    if (!errors.isEmpty())
+      // Format error message
+      throw new ErrorHandler({
+        ...errorMessages.DATA_REQUEST_INVALID,
+        details: errors.array(),
+        dev: true
+      });
 
-    // Throw error to default handler
-    next(error);
+    return null;
   };
 };

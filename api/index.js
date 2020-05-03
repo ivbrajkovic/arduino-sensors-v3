@@ -15,13 +15,15 @@ const debug = new require('debug')('app:server');
 const config = require('@api/config');
 
 // Express app
-const app = require('@api/app');
+// const app = require('@api/app');
 
 // Create HTTP server because of SocketIO
-const server = require('http').createServer(app);
+// const server = require('http').createServer(app);
 
 // Create socketIO
-require('@api/socket').createSocketIO(server);
+// require('@api/socket').createSocketIO(server);
+
+const { server, broadcast } = require('@api/socket');
 
 // Wrap in async call because of async database module
 (async () => {
@@ -38,6 +40,11 @@ require('@api/socket').createSocketIO(server);
     server.listen(config.app.port, () =>
       console.log(`Server is listening at ${config.app.port}`)
     );
+
+    // setInterval(() => {
+    //   broadcast({ data: new Date().toTimeString() });
+    //   console.log('broadcast:', new Date().toTimeString());
+    // }, 5000);
   } catch (error) {
     console.log(error);
     throw error;

@@ -1,0 +1,3 @@
+SELECT * FROM (
+SELECT * FROM data ORDER BY date DESC LIMIT ?)
+ORDER BY date ASC;

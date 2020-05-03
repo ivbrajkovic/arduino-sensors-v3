@@ -1,17 +1,41 @@
+/**
+ * Application entry point
+ */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+// Redux
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import ReduxThunk from 'redux-thunk';
+import rootReducer from './store/reducers';
+
+// MUI
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+// Components
+import App from './containers/App';
+
+// Styles
+import Theme from './theme/Theme';
+import './index.css';
+
+// Redux store
+const store = createStore(
+  rootReducer,
+  compose(
+    applyMiddleware(ReduxThunk), // Async middleware
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() // Redux devtool
+  )
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+ReactDOM.render(
+  <Provider store={store}>
+    <Theme>
+      <CssBaseline />
+      <App />
+    </Theme>
+  </Provider>,
+  document.getElementById('root')
+);

@@ -6,7 +6,7 @@
 const { asyncWrapper } = require('./utils');
 
 // Authorization middleware
-// const { authenticate } = require('../middleware');
+const { privateRoute } = require('./middleware');
 
 // Data controller
 const { DataController } = require('./controllers');
@@ -21,6 +21,14 @@ const router = require('express').Router();
  * PRIVATE ROUTES
  ***********************************************/
 
+// Delete all sensor data route
+router.get(
+  '/:n',
+  privateRoute,
+  asyncWrapper(validate(dataValidator.selectLastNRows)),
+  asyncWrapper(DataController.selectLastNRows)
+);
+
 // TODO Authenticate arduino client
 
 // TODO Uncoment auth middleware
@@ -29,8 +37,15 @@ const router = require('express').Router();
 router.post(
   '/',
   /* authenticate, */
-  validate(dataValidator.insertSensorData),
+  asyncWrapper(validate(dataValidator.insertSensorData)),
   asyncWrapper(DataController.insertSensorData)
+);
+
+// Delete all sensor data route
+router.delete(
+  '/',
+  privateRoute,
+  asyncWrapper(DataController.deleteAllSensorData)
 );
 
 // Export router

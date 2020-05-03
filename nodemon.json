@@ -1,7 +1,7 @@
 {
   "restartable": "rs",
   "verbose": true,
-  "watch": ["api"],
+  "watch": ["db", "api"],
   "delay": "1000",
   "env": {
     "NODE_ENV": "development"

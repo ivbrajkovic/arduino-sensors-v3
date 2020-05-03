@@ -12,7 +12,7 @@ const jwt = require('jsonwebtoken');
 const config = require('@api/config');
 
 // Errors
-const { errorMessages, ErrorException } = require('@api/errors');
+const { errorMessages, ErrorHandler } = require('@api/errors');
 
 // Authentication class
 module.exports = class AuthService {
@@ -38,16 +38,15 @@ module.exports = class AuthService {
   static verifyJWT = async req => {
     // Get auth header
     let authHeader = req.headers['authorization'];
-    if (!authHeader)
-      throw new ErrorException(errorMessages.JWT_TOKEN_NOT_FOUND);
+    if (!authHeader) throw new ErrorHandler(errorMessages.JWT_TOKEN_NOT_FOUND);
 
     // Vreify auth header
     if (!authHeader.startsWith('Bearer '))
-      throw new ErrorException(errorMessages.JWT_TOKEN_INVALID);
+      throw new ErrorHandler(errorMessages.JWT_TOKEN_INVALID);
 
     // Get token from header
     const token = authHeader && authHeader.split(' ')[1];
-    if (!token) throw new ErrorException(errorMessages.JWT_TOKEN_NOT_FOUND);
+    if (!token) throw new ErrorHandler(errorMessages.JWT_TOKEN_NOT_FOUND);
 
     try {
       // Decode token
@@ -59,7 +58,7 @@ module.exports = class AuthService {
       // Return decoded token
       return decoded;
     } catch (error) {
-      throw new ErrorException(
+      throw new ErrorHandler(
         error.name === jwt.TokenExpiredError.name
           ? errorMessages.JWT_TOKEN_EXPIRED
           : errorMessages.JWT_UNKNOWN

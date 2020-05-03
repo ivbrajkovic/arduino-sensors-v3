@@ -84,7 +84,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlYnJha
 ### Delete all users
 
 DELETE {{baseUrl}}/user
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Iml2YnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4ODQxNDMxOCwiZXhwIjoxNTg4NDIxNTE4fQ.SWXOILTCMJDu2doQ0PhYOBuQyMMi7Nf12K2Pk4wEFxI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Iml2YnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4ODUzNTQ1MCwiZXhwIjoxNTg4NTQyNjUwfQ.kFKMG7fWma9q9BLhyKpoiiHAeBigKovWGXQheElOQZU
 
 ### Insert data
 

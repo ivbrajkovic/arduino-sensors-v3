@@ -9,7 +9,7 @@ import {
   CLEAR_DARK_THEME,
   SET_DEV_MENU,
   CLEAR_DEV_MENU
-} from '../types';
+} from '../../types';
 
 // error
 export const setErrorAction = error => dispatch =>

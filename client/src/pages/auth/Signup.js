@@ -35,7 +35,7 @@ const Signup = () => {
   console.log('Signup -> Signup page');
 
   // If loggedin, redirect to home page
-  useRedirect();
+  useRedirect('/');
 
   // Custom styles
   const classes = useStyles();

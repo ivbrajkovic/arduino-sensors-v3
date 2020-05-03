@@ -4,7 +4,12 @@ import React, { useReducer, useEffect } from 'react';
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { darkThemeAction, devMenuAction } from '../../store/actions';
+import {
+  setDarkThemeAction,
+  clearDarkThemeAction,
+  setDevMenuAction,
+  clearDevMenuAction
+} from '../../store/actions';
 
 // Local reducer
 import { initialState, settingsReducer } from './reducer';
@@ -84,6 +89,14 @@ const Settings = () => {
   // Reducer
   const [state, dispatchSettings] = useReducer(settingsReducer, initialState);
 
+  const themeHandler = () =>
+    (settings.darkTheme && dispatch(clearDarkThemeAction())) ||
+    dispatch(setDarkThemeAction());
+
+  const devMenuHandler = () =>
+    (settings.devMenu && dispatch(clearDevMenuAction())) ||
+    dispatch(setDevMenuAction());
+
   // Lading effect
   useEffect(() => {
     loggedIn &&
@@ -119,7 +132,7 @@ const Settings = () => {
           <ListItemSecondaryAction>
             <Switch
               edge='end'
-              onChange={() => dispatch(darkThemeAction(!settings.darkTheme))}
+              onChange={themeHandler}
               checked={settings.darkTheme}
             />
           </ListItemSecondaryAction>
@@ -134,7 +147,7 @@ const Settings = () => {
           <ListItemSecondaryAction>
             <Switch
               edge='end'
-              onChange={() => dispatch(devMenuAction(!settings.devMenu))}
+              onChange={devMenuHandler}
               checked={settings.devMenu}
             />
           </ListItemSecondaryAction>

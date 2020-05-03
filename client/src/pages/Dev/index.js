@@ -8,8 +8,10 @@ import {
   loginAction,
   logoutAction,
   setErrorAction,
-  darkThemeAction,
-  devMenuAction
+  setDarkThemeAction,
+  clearDarkThemeAction,
+  setDevMenuAction,
+  clearDevMenuAction
 } from '../../store/actions';
 
 // Firebase
@@ -110,6 +112,14 @@ const Dev = () => {
   // Sensors limits
   const [limits, setLimits] = useState({});
 
+  const themeHandler = () =>
+    (settings.darkTheme && dispatch(setDarkThemeAction())) ||
+    dispatch(clearDarkThemeAction());
+
+  const devMenuHandler = () =>
+    (settings.devMenu && dispatch(clearDevMenuAction())) ||
+    dispatch(setDevMenuAction());
+
   // Loading effect
   useEffect(() => {
     loggedIn &&
@@ -191,14 +201,14 @@ const Dev = () => {
           <Button
             variant='contained'
             className={classes.button}
-            onClick={() => dispatch(darkThemeAction(!settings.darkTheme))}
+            onClick={themeHandler}
           >
             Dark teme
           </Button>
           <Button
             variant='contained'
             className={classes.button}
-            onClick={() => dispatch(devMenuAction(!settings.devMenu))}
+            onClick={devMenuHandler}
           >
             Dev menu
           </Button>

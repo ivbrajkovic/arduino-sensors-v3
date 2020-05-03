@@ -33,7 +33,7 @@ const Login = () => {
   console.log('Login -> Login page');
 
   // If loggedin, redirect to home page
-  useRedirect();
+  useRedirect('/');
 
   // Custom styles
   const classes = useStyles();

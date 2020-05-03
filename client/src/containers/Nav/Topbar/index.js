@@ -43,8 +43,8 @@ const Topbar = ({ open, drawerWidth, handleDrawerOpen }) => {
   const darkTheme = useSelector(state => state.ui.settings.darkTheme);
 
   const themeHandler = () =>
-    (darkTheme && dispatch(setDarkThemeAction())) ||
-    dispatch(clearDarkThemeAction());
+    (darkTheme && dispatch(clearDarkThemeAction())) ||
+    dispatch(setDarkThemeAction());
 
   const createLinks = login => (
     <>

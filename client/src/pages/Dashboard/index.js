@@ -25,7 +25,7 @@ import DataView from '../../components/DataView';
 import { useRedirect } from '../../hooks';
 
 // Utiliuty
-import { logObj, randomNum /* formatTime */ } from '../../lib';
+import { logObj, randomNum /* formatTime */ } from '../../helper';
 
 // Custom styles
 import useStyles from './style';

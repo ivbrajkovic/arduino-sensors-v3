@@ -2,35 +2,35 @@
  * Signup user action
  */
 
-import { SET_LOADING, SET_ERROR } from '../../types';
+// User types
+import { LOGIN_USER } from '../../types';
 
-import parseJsonResponse from './helper';
+// UI actions
+import { setLoadingAction, setErrorAction } from '../ui/ui-action';
+
+// Fetch helper
+import { fetchHelper } from '../../../helper';
 
 // Signup new user and update store
 const signupAction = user => async dispatch => {
   // Start spinner
-  dispatch({ type: SET_LOADING });
+  dispatch(setLoadingAction());
 
   try {
-    // Get response from login api
-    const res = await fetch(process.env.REACT_APP_API_URL + '/user/register', {
+    // Fetch signup API
+    const data = await fetchHelper({
+      url: '/user/register',
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(user)
+      data: user
     });
 
-    // Get JSON objevt from response
-    const json = await res.json();
+    // Save token to local storage
+    window.localStorage.setItem('token', data.token || '');
 
-    // Parse and dispatch response from API
-    parseJsonResponse(json, dispatch);
+    // Dispatch user data
+    dispatch({ type: LOGIN_USER, payload: data.user || {} });
   } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload: { code: 'unknown_error', message: error.toString() }
-    });
+    dispatch(setErrorAction(error));
   }
 };
 

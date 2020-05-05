@@ -30,7 +30,7 @@ import DataView from '../../components/DataView';
 import { useRedirect } from '../../hooks';
 
 // Utility
-import { logObj } from '../../lib';
+import { logObj } from '../../helper';
 
 // Custom styles
 import useStyles from './style';

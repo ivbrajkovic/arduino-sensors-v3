@@ -6,23 +6,27 @@
 import loginAction from './user/login-action';
 import logoutAction from './user/logout-action';
 import signupAction from './user/signup-action';
-import checkTokenAction from './user/check-token-action';
+import tokenAction from './user/token-action';
 
 // Ui actions
 import {
+  setLoadingAction,
+  clearLoadingAction,
   setErrorAction,
   clearErrorsAction,
   setDarkThemeAction,
   clearDarkThemeAction,
   setDevMenuAction,
   clearDevMenuAction
-} from './ui';
+} from './ui/ui-action';
 
 export {
   loginAction,
   logoutAction,
   signupAction,
-  checkTokenAction,
+  tokenAction,
+  setLoadingAction,
+  clearLoadingAction,
   setErrorAction,
   clearErrorsAction,
   setDarkThemeAction,

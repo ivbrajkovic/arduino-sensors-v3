@@ -1,9 +1,9 @@
 /**
- * User login actions
+ * Verify token acton
  */
 
 // User types
-import { LOGIN_USER } from '../../types';
+import { LOGIN_USER, LOGOUT_USER } from '../../types';
 
 // UI actions
 import { setLoadingAction, setErrorAction } from '../../actions';
@@ -12,26 +12,25 @@ import { setLoadingAction, setErrorAction } from '../../actions';
 import { fetchHelper } from '../../../helper';
 
 // Login user and update store
-const loginAction = (email, password) => async dispatch => {
+const tokenAction = token => async dispatch => {
+  console.log('tokenAction -> tokenAction');
+
   // Start spinner
   dispatch(setLoadingAction());
 
   try {
-    // Fetch login API
-    const data = await fetchHelper({
-      url: '/user/login',
-      method: 'POST',
-      data: { email, password }
-    });
-
-    // Save token to local storage
-    window.localStorage.setItem('token', data.token || '');
+    // Fetch verify token API
+    const data = await fetchHelper({ url: '/user/verify', token });
 
     // Dispatch user data
     dispatch({ type: LOGIN_USER, payload: data.user || {} });
   } catch (error) {
+    // If token error logout user
+    /^JWT_/.test(error.code) && dispatch({ type: LOGOUT_USER });
+
+    // Dispatch error
     dispatch(setErrorAction(error));
   }
 };
 
-export default loginAction;
+export default tokenAction;

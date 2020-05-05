@@ -13,11 +13,12 @@ export const useErrorSelector = () =>
   useSelector(
     store => store.ui.error,
     (left, right) => {
-      // console.log('left', left);
       // console.log('right', right);
+      // console.log('left', left);
       return (
-        left.code === right.code &&
-        left.details?.length === right.details?.length
+        /^jwt_/.test(left.code) ||
+        (left.code === right.code &&
+          left.details?.length === right.details?.length)
       );
     }
   );

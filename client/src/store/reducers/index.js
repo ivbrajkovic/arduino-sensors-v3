@@ -1,8 +1,10 @@
-// Root reducer
+/**
+ * Combine reducers and export one root reducer
+ */
 
 import { combineReducers } from 'redux';
-import userReducer from './userReducers';
-import uiReducer from './uiReducers';
+import userReducer from './user-reducers';
+import uiReducer from './ui-reducers';
 
 const rootReducer = combineReducers({
   user: userReducer,

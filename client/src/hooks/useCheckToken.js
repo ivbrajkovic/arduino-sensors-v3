@@ -7,14 +7,16 @@ import { useEffect } from 'react';
 
 // Redux
 import { useDispatch } from 'react-redux';
-import { checkTokenAction } from '../store/actions';
+import { tokenAction } from '../store/actions';
 
 const useCheckToken = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     const token = window.localStorage.getItem('token');
-    token && dispatch(checkTokenAction(token));
+    console.log('useCheckToken -> useEffect');
+
+    token && dispatch(tokenAction(token));
   }, []);
 };
 

@@ -3,16 +3,11 @@
 import {
   LOGIN_USER,
   LOGOUT_USER,
-  START_LOADING,
-  STOP_LOADING,
   SET_ERROR,
   CLEAR_ERROR,
   SET_LOADING,
-  CLEAR_LOADING,
   SET_DEV_MENU,
-  CLEAR_DEV_MENU,
-  SET_DARK_THEME,
-  CLEAR_DARK_THEME
+  SET_DARK_THEME
 } from '../types';
 
 const initSettings = {
@@ -50,12 +45,7 @@ const uiReducer = (state = initState, action) => {
     case SET_DARK_THEME:
       return {
         ...state,
-        settings: { ...state.settings, darkTheme: true }
-      };
-    case CLEAR_DARK_THEME:
-      return {
-        ...state,
-        settings: { ...state.settings, darkTheme: false }
+        settings: { ...state.settings, darkTheme: action.payload }
       };
     /********************************************************/
 
@@ -65,12 +55,7 @@ const uiReducer = (state = initState, action) => {
     case SET_DEV_MENU:
       return {
         ...state,
-        settings: { ...state.settings, devMenu: true }
-      };
-    case CLEAR_DEV_MENU:
-      return {
-        ...state,
-        settings: { ...state.settings, devMenu: false }
+        settings: { ...state.settings, devMenu: action.payload }
       };
     /********************************************************/
 
@@ -78,9 +63,7 @@ const uiReducer = (state = initState, action) => {
      * Loading
      */
     case SET_LOADING:
-      return { ...state, loading: true };
-    case CLEAR_LOADING:
-      return { ...state, loading: false };
+      return { ...state, loading: action.payload };
     /********************************************************/
 
     /********************************************************

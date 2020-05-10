@@ -13,6 +13,7 @@ const useClearErrorsOnExit = () => {
   console.log('Hook -> useClearErrorsOnExit');
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     return () => {
       // Clear error if any on exit

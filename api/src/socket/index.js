@@ -34,7 +34,9 @@ const io = require('socket.io')(server);
 
 io.on('connection', async socket => {
   try {
-    const decoded = await AuthService.verifyJWT(socket.handshake);
+    socket.emit('hello', 'Hello from server');
+
+    // const decoded = await AuthService.verifyJWT(socket.handshake);
     debug('client connected: ' + socket.id);
 
     socket.on('disconnect', function () {
@@ -42,15 +44,22 @@ io.on('connection', async socket => {
 
       // io.emit('user disconnected');
     });
+
+    socket.on('data', function (data) {
+      console.log('data', data);
+      // debug('client: ' + data);
+
+      // io.emit('user disconnected');
+    });
   } catch (error) {
-    socket.emit('unauthorized');
+    //socket.emit('unauthorized');
     //next(error);
     socket.disconnect(true);
   }
 });
 
-const broadcast = obj => {
-  io.emit('data', obj);
+const broadcast = data => {
+  io.emit('data', data);
 };
 
 module.exports = { server, broadcast };

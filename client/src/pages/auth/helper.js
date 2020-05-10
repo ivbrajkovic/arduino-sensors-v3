@@ -9,22 +9,14 @@ import { useSelector } from 'react-redux';
  * Custom UI error selector with equality fnc
  * @returns Redux selector
  */
-export const useErrorSelector = () => {
-  console.log('Hook- > useErrorSelector');
-
+export const useErrorSelector = () =>
   useSelector(
     store => store.ui.error,
-    (left, right) => {
-      // console.log('right', right);
-      // console.log('left', left);
-      return (
-        /^jwt_/.test(left.code) ||
-        (left.code === right.code &&
-          left.details?.length === right.details?.length)
-      );
-    }
+    (left, right) =>
+      /^jwt_/.test(left.code) ||
+      (left.code === right.code &&
+        left.details?.length === right.details?.length)
   );
-};
 
 /**
  * Parse and format error object recived from API

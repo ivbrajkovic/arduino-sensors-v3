@@ -2,7 +2,7 @@
  * Snackbar for notify messages
  */
 
-// React / redux
+// React / Redux
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearErrorsAction } from '../../store/actions';
@@ -17,7 +17,7 @@ import CloseIcon from '@material-ui/icons/Close';
 const TransitionRight = props => <Slide {...props} direction='right' />;
 
 const Snack = ({ timeout = 4000 }) => {
-  console.log('Snack -> component');
+  // console.log('Snack -> component');
 
   // Action dispatcher
   const dispatch = useDispatch();
@@ -26,10 +26,7 @@ const Snack = ({ timeout = 4000 }) => {
   const showAllErrors = useSelector(store => store.ui.settings.showAllErrors);
 
   // Custome redux store selector
-  const error = useSelector(
-    store => store.ui.error
-    // left => (!showAllErrors && /^data_|^user_/.test(left.code)) || false
-  );
+  const error = useSelector(store => store.ui.error);
 
   // Close snack handler
   const handleClose = (event, reason) => {
@@ -46,8 +43,8 @@ const Snack = ({ timeout = 4000 }) => {
         horizontal: 'left'
       }}
       open={
-        (showAllErrors && !!error.message) ||
-        /^data_|^user_/.test(error.message)
+        (showAllErrors && !!error.code) ||
+        /^(?:(?!data_|user_)).+$/.test(error.code)
       }
       autoHideDuration={timeout}
       onClose={handleClose}

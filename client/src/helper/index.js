@@ -3,24 +3,6 @@
  */
 
 import fetchHelper from './fetch-helper';
+export { fetchHelper };
 
-import {
-  logObj,
-  isEmptyObj,
-  formatDatetime,
-  formatTime,
-  randomNum,
-  isNumber,
-  trimLeadingZeros
-} from './simple-utilites';
-
-export {
-  fetchHelper,
-  logObj,
-  isEmptyObj,
-  formatDatetime,
-  formatTime,
-  randomNum,
-  isNumber,
-  trimLeadingZeros
-};
+export * from './simple-utilites';

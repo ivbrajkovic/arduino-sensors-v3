@@ -61,6 +61,9 @@ export const settingsReducer = (state, action) => {
       return tmp;
     }
 
+    case 'DISABLE_BUTTON':
+      return { ...state, buttonDisabled: true };
+
     default:
       return state;
   }

@@ -223,15 +223,15 @@ const Settings = () => {
           dispatch={dispatchReducer}
         />
 
-        {/* CO2 sensor settings */}
+        {/* Temperature sensor settings */}
         <SensorListItem
           nested
-          Icon={ScatterPlotIcon}
-          name='co2'
-          primary='CO2'
+          Icon={WbSunnyIcon}
+          name='temperature'
+          primary='Temperature'
           selected={selected}
-          upperLimit={state.arduinos[selected]?.co2.max}
-          lowerLimit={state.arduinos[selected]?.co2.min}
+          upperLimit={state.arduinos[selected]?.temperature.max}
+          lowerLimit={state.arduinos[selected]?.temperature.min}
           dispatch={dispatchReducer}
         />
 
@@ -246,16 +246,15 @@ const Settings = () => {
           lowerLimit={state.arduinos[selected]?.humidity.min}
           dispatch={dispatchReducer}
         />
-
-        {/* Temperature sensor settings */}
+        {/* CO2 sensor settings */}
         <SensorListItem
           nested
-          Icon={WbSunnyIcon}
-          name='temperature'
-          primary='Temperature'
+          Icon={ScatterPlotIcon}
+          name='co2'
+          primary='CO2'
           selected={selected}
-          upperLimit={state.arduinos[selected]?.temperature.max}
-          lowerLimit={state.arduinos[selected]?.temperature.min}
+          upperLimit={state.arduinos[selected]?.co2.max}
+          lowerLimit={state.arduinos[selected]?.co2.min}
           dispatch={dispatchReducer}
         />
 

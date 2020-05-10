@@ -127,7 +127,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Iml2YnJha
 ### Get settings by id
 
 GET {{baseUrl}}/settings/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Iml2YnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4OTAzOTc4MSwiZXhwIjoxNTg5MDQ2OTgxfQ.cJ7Pn3Y11iT0g_eaOeyf27Pm6XdhdPgSg_HTCueWNsQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Iml2YnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4OTEyOTg4OSwiZXhwIjoxNTg5MTM3MDg5fQ.8cT0S2G7iuzRjAIYjEbjLBc-kDJqZuoAaVM93YWp1Rs
 
 ### Insert settings
 

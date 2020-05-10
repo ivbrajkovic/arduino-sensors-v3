@@ -2,6 +2,8 @@
  * UI store actions
  */
 
+import { logoutAction } from '../';
+
 import {
   SET_LOADING,
   SET_ERROR,
@@ -23,7 +25,13 @@ export const setLoadingAction = () => ({ type: SET_LOADING, payload: true });
 export const clearLoadingAction = () => ({ type: SET_LOADING, payload: false });
 
 // error
-export const setErrorAction = error => ({ type: SET_ERROR, payload: error });
+export const setErrorAction = error => dispatch => {
+  if (/^jwt_/.test(error.code)) dispatch(logoutAction());
+  dispatch({ type: SET_ERROR, payload: error });
+};
+// export const setErrorAction = error => {
+//   return { type: SET_ERROR, payload: error };
+// };
 
 export const setUnknownErrorAction = () => ({
   type: SET_ERROR,

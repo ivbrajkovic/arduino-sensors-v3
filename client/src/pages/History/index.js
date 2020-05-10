@@ -139,6 +139,7 @@ const History = () => {
         dispatch(setErrorAction(error));
       }
     })();
+    // eslint-disable-next-line
   }, [dates]);
 
   return (

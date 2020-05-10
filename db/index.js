@@ -90,12 +90,7 @@ class DB extends Database {
      * Insert sensor data into table
      * @param {Array} params Sensor data
      */
-    insert: params => {
-      params.push(new Date().toISOString());
-      // const query = sql.setParams(sql.queries.data.insert, params);
-      return this.run(sql.queries.data.insert, params);
-    },
-
+    insert: params => this.run(sql.queries.data.insert, params),
     /*********************************************************
      * Select last nth rows from sensor data
      * @param {Array} params Number of rows to select

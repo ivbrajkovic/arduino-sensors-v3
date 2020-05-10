@@ -37,12 +37,15 @@ module.exports = class UserController {
    */
   static insertSensorData = async req => {
     const { arduino, co2, humidity, temperature } = req.body;
-    const { changes } = await DataService.insertSensorData({
+    const { changes, data } = await DataService.insertSensorData({
       arduino,
       co2,
       humidity,
       temperature
     });
+
+    // Broad cast to all connected client
+    require('@api/socket').broadcast(data);
     return { changes };
   };
   /**************************************************************/

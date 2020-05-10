@@ -1,16 +1,12 @@
-// Sign up page
+/**
+ * Signup page
+ */
 
-// React
+// React / Redux
 import React, { useMemo } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-
-// Redux
 import { useDispatch } from 'react-redux';
 import { signupAction } from '../../store/actions';
-
-// Components
-import ButtonProgress from '../../components/ButtonProgress';
-import PasswordField from '../../components/PasswordField';
 
 // Material UI
 import Grid from '@material-ui/core/Grid';
@@ -21,6 +17,10 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+
+// Components
+import ButtonProgress from '../../components/ButtonProgress';
+import PasswordField from '../../components/PasswordField';
 
 // Custom styles
 import useStyles from './style.js';

@@ -1,15 +1,15 @@
-// Main application
+/**
+ * Application component
+ */
 
+// Recat
 import React from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
 // Hooks
-// import { useAuthStateChanged } from '../../hooks';
 import { useCheckToken } from '../../hooks';
 
 // Material UI
-// import clsx from 'clsx';
-// import Toolbar from '@material-ui/core/Toolbar';
 import Container from '@material-ui/core/Container';
 
 // Compponents
@@ -21,10 +21,11 @@ import Snackbar from '../../components/Snackbar';
 import useStyles from './style';
 
 const App = () => {
+  // Custom style
   const classes = useStyles();
 
-  // Listen fro firebase authorization change
-  // useAuthStateChanged();
+  // Check if token in local storage is valid
+  // and dispatch login if true
   useCheckToken();
 
   return (

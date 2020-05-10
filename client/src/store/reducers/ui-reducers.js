@@ -34,7 +34,7 @@ const uiReducer = (state = initState, action) => {
 
   switch (action.type) {
     /********************************************************
-     * User
+     * User, if payload TRUE preserve error
      */
     case LOGIN_USER:
     case LOGOUT_USER:

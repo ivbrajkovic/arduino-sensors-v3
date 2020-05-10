@@ -43,15 +43,16 @@ module.exports = class DataService {
    @param {*} data Sensor data
    */
   static insertSensorData = async ({ arduino, co2, humidity, temperature }) => {
-    const { data } = await require(this.dbDir);
-    const { changes } = await data.insert([
-      arduino,
-      co2,
-      humidity,
-      temperature
-    ]);
+    const db = (await require(this.dbDir)).data;
+
+    const date = new Date().toISOString();
+
+    // Add datetime stamp
+    const data = [arduino, co2, humidity, temperature, date];
+    const { changes } = await db.insert(data);
+
     debug('Data from sensors inserted successfully');
-    return { changes };
+    return { changes, data: { arduino, co2, humidity, temperature, date } };
   };
   /**************************************************************/
 

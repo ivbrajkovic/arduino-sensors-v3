@@ -1,16 +1,12 @@
-// Login page
+/**
+ * Login page
+ */
 
-// React
+// React / Redux
 import React, { useMemo } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-
-// Redux
 import { useDispatch } from 'react-redux';
 import { loginAction } from '../../store/actions';
-
-// Components
-import ButtonProgress from '../../components/ButtonProgress';
-import PasswordField from '../../components/PasswordField';
 
 // Material UI
 import Link from '@material-ui/core/Link';
@@ -19,6 +15,10 @@ import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+
+// Components
+import ButtonProgress from '../../components/ButtonProgress';
+import PasswordField from '../../components/PasswordField';
 
 // Custom styles
 import useStyles from './style.js';
@@ -30,7 +30,7 @@ import { useRedirect, useClearErrorsOnExit } from '../../hooks';
 import { useErrorSelector, formatErrors } from './helper';
 
 const Login = () => {
-  console.log('Login -> Login page');
+  console.log('Login -> page');
 
   // If loggedin, redirect to home page
   useRedirect();

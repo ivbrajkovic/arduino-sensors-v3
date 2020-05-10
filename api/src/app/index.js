@@ -34,6 +34,10 @@ app.use(require('express').static(static));
 // API routes
 app.use(`${config.app.baseApiUrl}/user`, require('@api/routes').userRoute);
 app.use(`${config.app.baseApiUrl}/data`, require('@api/routes').dataRoute);
+app.use(
+  `${config.app.baseApiUrl}/settings`,
+  require('@api/routes').settingsRoute
+);
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) =>

@@ -10,11 +10,10 @@ const baseUrl = process.env.REACT_APP_API_URL;
  * @param {object} param0 Url, method, token, data
  */
 const fetchHelper = async ({ url, method = 'GET', token, data }) => {
-  console.log('fetchHelper -> method', method);
+  console.log('fetchHelper -> url', url);
   try {
     // Request headers
     let headers = {};
-    // method !== 'GET' || (token && (headers = {}));
     method !== 'GET' && (headers['Content-Type'] = 'application/json');
     token && (headers['Authorization'] = 'Bearer ' + token);
 
@@ -46,6 +45,7 @@ const fetchHelper = async ({ url, method = 'GET', token, data }) => {
     // Set unknown error
     // else dispatch(setUnknownErrorAction());
   } catch (error) {
+    // eslint-disable-next-line
     throw {
       code: error.code || 'unknown_error',
       message: error.message || 'Unknown error',

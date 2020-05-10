@@ -10,8 +10,9 @@ import {
   formatDatetime,
   formatTime,
   randomNum,
-  isNumber
-} from './utility';
+  isNumber,
+  trimLeadingZeros
+} from './simple-utilites';
 
 export {
   fetchHelper,
@@ -20,5 +21,6 @@ export {
   formatDatetime,
   formatTime,
   randomNum,
-  isNumber
+  isNumber,
+  trimLeadingZeros
 };

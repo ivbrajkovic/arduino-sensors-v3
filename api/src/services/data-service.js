@@ -23,7 +23,6 @@ module.exports = class DataService {
 
     // Insert sensor data into datbase
     const data = await db.selectLastNRows([n]);
-    console.log('DataService -> data', data);
 
     // Log status success
     debug('Sensor data retreived successfully');

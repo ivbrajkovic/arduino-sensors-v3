@@ -5,5 +5,6 @@
 module.exports = {
   AuthController: require('./auth-controller'),
   UserController: require('./user-controller'),
-  DataController: require('./data-controller')
+  DataController: require('./data-controller'),
+  SettingsController: require('./settings-controller')
 };

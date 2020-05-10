@@ -16,7 +16,9 @@ import CloseIcon from '@material-ui/icons/Close';
 // Transition
 const TransitionRight = props => <Slide {...props} direction='right' />;
 
-const Snack = ({ timeout = 6000 }) => {
+const Snack = ({ timeout = 4000 }) => {
+  console.log('Snack -> component');
+
   // Action dispatcher
   const dispatch = useDispatch();
 
@@ -40,6 +42,7 @@ const Snack = ({ timeout = 6000 }) => {
         vertical: 'bottom',
         horizontal: 'left'
       }}
+      // open={!!error.message}
       open={!!error.message}
       autoHideDuration={timeout}
       onClose={handleClose}

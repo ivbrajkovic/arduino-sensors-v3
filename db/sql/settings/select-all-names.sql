@@ -1,0 +1,2 @@
+SELECT arduino 
+FROM settings;

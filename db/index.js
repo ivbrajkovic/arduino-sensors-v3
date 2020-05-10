@@ -24,8 +24,9 @@ class DB extends Database {
    */
   createTables() {
     const queries = `
-      ${sql.queries.table.users.create}
-      ${sql.queries.table.data.create}
+      ${sql.queries.table.data}
+      ${sql.queries.table.users}
+      ${sql.queries.table.settings}
     `;
     return this.exec(queries);
   }
@@ -66,6 +67,18 @@ class DB extends Database {
      * Delete all users from database
      */
     deleteAll: () => this.run(sql.queries.user['delete-all'])
+  };
+
+  /*********************************************************
+   * SETTINGS
+   *********************************************************/
+
+  settings = {
+    select: id => this.get(sql.queries.settings.select, id),
+    selectAll: () => this.all(sql.queries.settings['select-all']),
+    selectAllNames: () => this.all(sql.queries.settings['select-all-names']),
+    insert: settings => this.run(sql.queries.settings.insert, settings),
+    update: settings => this.run(sql.queries.settings.update, settings)
   };
 
   /*********************************************************

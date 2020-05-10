@@ -7,7 +7,6 @@ module.exports = fn => async (req, res, next) => {
   try {
     // Await for data
     const data = await fn(req, res, next);
-    console.log('data', data);
 
     if (data)
       // Send success status

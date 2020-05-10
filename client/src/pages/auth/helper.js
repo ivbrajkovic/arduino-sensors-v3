@@ -9,7 +9,9 @@ import { useSelector } from 'react-redux';
  * Custom UI error selector with equality fnc
  * @returns Redux selector
  */
-export const useErrorSelector = () =>
+export const useErrorSelector = () => {
+  console.log('Hook- > useErrorSelector');
+
   useSelector(
     store => store.ui.error,
     (left, right) => {
@@ -22,6 +24,7 @@ export const useErrorSelector = () =>
       );
     }
   );
+};
 
 /**
  * Parse and format error object recived from API

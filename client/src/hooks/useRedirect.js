@@ -4,26 +4,21 @@
 
 // React
 import { useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 // Redux
 import { useSelector } from 'react-redux';
 
-const useRedirect = (path, goBack) => {
-  console.log('useRedirect -> useRedirect');
+const useRedirect = () => {
+  console.log('useRedirect -> hook');
 
   const history = useHistory();
-  const location = useLocation();
   const login = useSelector(state => state.user.login);
 
   useEffect(() => {
-    if (!login && location.pathname !== '/signup') history.push('/login');
-    else if (login && path) {
-      (goBack && history.goBack()) || history.push(path);
-    }
+    if (login) history.push('/');
+    // eslint-disable-next-line
   }, [login]);
-
-  return login;
 };
 
 export default useRedirect;

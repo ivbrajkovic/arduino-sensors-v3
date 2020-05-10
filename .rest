@@ -9,7 +9,7 @@ POST {{baseUrl}}/user/login
 content-type: application/json
 
 {
-  "email1": "bebrajkovic@gmail.com",
+  "email": "bebrajkovic@gmail.com",
   "password": "654321"
 }
 
@@ -100,10 +100,72 @@ content-type: application/json
 
 ### Get last nth data
 
-GET {{baseUrl}}/data/2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Iml2YnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4ODUyOTM2NiwiZXhwIjoxNTg4NTM2NTY2fQ.MvC8iep0eBbXrAAWI8hAlWLLMY_haXskLqMMVQuXSbc
+GET {{baseUrl}}/data/10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Iml2YnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4ODk2NDE2MiwiZXhwIjoxNTg4OTcxMzYyfQ.1deJQrNIgJZ5Mo08zNmJUS3k6Sh08A5GUUbS8uDNYTc
 
 ### Delete all data
 
 DELETE {{baseUrl}}/data
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlYnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4ODM0ODAwNiwiZXhwIjoxNTg4MzU1MjA2fQ.bUP1ovSxCAFxz9q-FT8Z3LuKmR0ZLBWC2S0aaeBUWQg
+
+### Get all settings
+
+GET {{baseUrl}}/settings
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Iml2YnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4OTAzOTc4MSwiZXhwIjoxNTg5MDQ2OTgxfQ.cJ7Pn3Y11iT0g_eaOeyf27Pm6XdhdPgSg_HTCueWNsQ
+
+### Get settings by id
+
+GET {{baseUrl}}/settings/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Iml2YnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4OTAzOTc4MSwiZXhwIjoxNTg5MDQ2OTgxfQ.cJ7Pn3Y11iT0g_eaOeyf27Pm6XdhdPgSg_HTCueWNsQ
+
+### Insert settings
+
+POST {{baseUrl}}/settings
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Iml2YnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4OTAzOTc4MSwiZXhwIjoxNTg5MDQ2OTgxfQ.cJ7Pn3Y11iT0g_eaOeyf27Pm6XdhdPgSg_HTCueWNsQ
+
+{
+  "arduino": "2",
+  "led": "0",
+  "fan": "0",
+  "updateInterval": "0",
+  "co2": {
+    "min": "12",
+    "max": "18"
+  },
+  "humidity": {
+    "min": "40",
+    "max": "80"
+  },
+  "temperature": {
+    "min": "22",
+    "max": "39"
+  }
+}
+
+### Update settings
+
+PUT {{baseUrl}}/settings
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Iml2YnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4OTAzOTc4MSwiZXhwIjoxNTg5MDQ2OTgxfQ.cJ7Pn3Y11iT0g_eaOeyf27Pm6XdhdPgSg_HTCueWNsQ
+
+{
+  "arduino": "1",
+  "led": "0",
+  "fan": "0",
+  "updateInterval": "0",
+  "co2": {
+    "min": "12",
+    "max": "18"
+  },
+  "humidity": {
+    "min": "40",
+    "max": "80"
+  },
+  "temperature": {
+    "min": "22",
+    "max": "39"
+  }
+}
+
+###

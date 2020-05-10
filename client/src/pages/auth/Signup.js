@@ -8,9 +8,6 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { signupAction } from '../../store/actions';
 
-// Hooks
-import { useRedirect, useClearErrorsOnExit } from '../../hooks';
-
 // Components
 import ButtonProgress from '../../components/ButtonProgress';
 import PasswordField from '../../components/PasswordField';
@@ -28,6 +25,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 // Custom styles
 import useStyles from './style.js';
 
+// Hooks
+import { useRedirect, useClearErrorsOnExit } from '../../hooks';
+
 // Error helpers
 import { useErrorSelector, formatErrors } from './helper';
 
@@ -35,7 +35,7 @@ const Signup = () => {
   console.log('Signup -> Signup page');
 
   // If loggedin, redirect to home page
-  useRedirect('/');
+  useRedirect();
 
   // Custom styles
   const classes = useStyles();

@@ -14,9 +14,6 @@ import {
   clearDevMenuAction
 } from '../../store/actions';
 
-// Firebase
-import firebase from '../../firebase/firebase';
-
 // Material UI
 import Button from '@material-ui/core/Button';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -27,7 +24,7 @@ import orange from '@material-ui/core/colors/orange';
 import DataView from '../../components/DataView';
 
 // Hooks
-import { useRedirect } from '../../hooks';
+import { useRedirectToLogin } from '../../hooks';
 
 // Utility
 import { logObj } from '../../helper';
@@ -40,32 +37,6 @@ const defaultLimits = {
   min: 0
 };
 
-const createUser = async () => {
-  try {
-    await firebase.signin('IB', 'ivan1.brajkovic@icloud.com', '123456789');
-    getCurrenUserHandler();
-  } catch (err) {
-    console.log('logoutHandler -> err', err);
-  }
-};
-
-const getCurrenUserHandler = () => {
-  const user = firebase.getCurrentUser();
-  console.log(
-    'Currently logged user:',
-    user ? (user.displayName ? user.displayName : user.email) : 'none'
-  );
-};
-
-const addData = async dispatch => {
-  try {
-    await firebase.addData('sensors', null);
-  } catch (err) {
-    logObj(err);
-    dispatch(setErrorAction(err));
-  }
-};
-
 const Dev = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -74,12 +45,13 @@ const Dev = () => {
   const widthMaxXS = useMediaQuery('(max-width:599.99px)');
 
   // Redirect to loggin
-  const loggedIn = useRedirect();
+  const loggedIn = useRedirectToLogin();
 
   // Debug add dummy data on interval
   const intervalRef = useRef();
   const [started, setStarted] = useState(false);
   const [state, setState] = useState({ x: new Date().getTime(), y: 0 });
+
   const startInterval = _ => {
     if (started) {
       clearInterval(intervalRef.current);
@@ -94,21 +66,6 @@ const Dev = () => {
     }
   };
 
-  // const addItem = item => {
-  //   setChart([item]);
-  // };
-
-  // useEffect(() => {
-  //   const labels = document.querySelectorAll(
-  //     ".chart-container .axis, .chart-container .chart-label"
-  //   );
-  //   labels &&
-  //     labels.forEach(label => {
-  //       if (settings.darkTheme) label.classList.add("fill-white");
-  //       else label.classList.remove("fill-white");
-  //     });
-  // }, [settings.darkTheme]);
-
   // Sensors limits
   const [limits, setLimits] = useState({});
 
@@ -119,28 +76,6 @@ const Dev = () => {
   const devMenuHandler = () =>
     (settings.devMenu && dispatch(clearDevMenuAction())) ||
     dispatch(setDevMenuAction());
-
-  // Loading effect
-  useEffect(() => {
-    loggedIn &&
-      firebase
-        .getDocumentData('settings', 'arduino0')
-        .then(doc => {
-          if (!doc.exists) {
-            console.log('No such document!');
-            return;
-          }
-          const data = doc.data();
-          setLimits({
-            temperature: data.temperature,
-            humidity: data.humidity,
-            co2: data.co2
-          });
-        })
-        .catch(error => {
-          console.log('Error getting document:', error);
-        });
-  }, [loggedIn]);
 
   // Compose title
   const composeTitle = title => {
@@ -175,28 +110,7 @@ const Dev = () => {
             className={classes.button}
             onClick={() => dispatch(logoutAction())}
           >
-            Logout
-          </Button>
-          <Button
-            variant='contained'
-            className={classes.button}
-            onClick={getCurrenUserHandler}
-          >
-            Get user
-          </Button>
-          <Button
-            variant='contained'
-            className={classes.button}
-            onClick={createUser}
-          >
-            New user
-          </Button>
-          <Button
-            variant='contained'
-            className={classes.button}
-            onClick={() => addData(dispatch)}
-          >
-            Add data
+            Logout{' '}
           </Button>
           <Button
             variant='contained'

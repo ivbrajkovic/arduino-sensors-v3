@@ -1,66 +1,67 @@
-// Setings reducer
+/**
+ * Setings reducer
+ */
 
-import { SET_STATE, SET_CONTROL, SET_SENSOR_SETTINGS } from './types.js';
+// Helper fnc
+import { trimLeadingZeros } from '../../helper';
 
-const initialState = {
-	led: false,
-	fan: false,
-	updateInterval: 0,
-	temperature: {
-		max: 0,
-		min: 0
-	},
-	humidity: {
-		max: 0,
-		min: 0
-	},
-	co2: {
-		max: 0,
-		min: 0
-	}
+export const initialState = {
+  buttonDisabled: true,
+  arduinos: [
+    {
+      arduino: 0,
+      led: 0,
+      fan: 0,
+      updateInterval: 0,
+      temperature: {
+        max: 0,
+        min: 0
+      },
+      humidity: {
+        max: 0,
+        min: 0
+      },
+      co2: {
+        max: 0,
+        min: 0
+      }
+    }
+  ]
 };
 
-const settingsReducer = (state, action) => {
-	let value;
+export const settingsReducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_STATE':
+      return { ...state, arduinos: action.payload };
 
-	switch (action.type) {
-		case SET_STATE:
-			const newState = action.payload;
-			return newState;
+    case 'SET_CONTROL': {
+      const tmp = { ...state };
+      const { selected, name, value } = action.payload;
+      tmp.arduinos[selected][name] = value;
 
-		case SET_CONTROL:
-			return {
-				...state,
-				[action.payload.name]: action.payload.value
-			};
+      return tmp;
+    }
 
-		case SET_SENSOR_SETTINGS:
-			value = Number(action.payload.value);
-			// if (!value) return state;
+    case 'SET_VALUE': {
+      const tmp = { ...state };
+      let { selected, name, value } = action.payload;
 
-			// value = action.payload.value;
-			// if (!isDigit.test(value)) return state;
+      // If no value provided set to "0"
+      if (value === '') value = 0;
+      // Remove leading zeroes
+      // else if (value > 1) value = trimLeadingZeros(value);
+      else value = trimLeadingZeros(value);
 
-			const sensor = action.payload.sensor;
-			const name = action.payload.name;
+      if (name.indexOf('-') > 1) {
+        name = name.split('-');
+        tmp.arduinos[selected][name[0]][name[1]] = value;
+      } else tmp.arduinos[selected][name] = value;
 
-			if (sensor)
-				return {
-					...state,
-					[sensor]: {
-						...state[sensor],
-						[name]: value
-					}
-				};
-			else
-				return {
-					...state,
-					[name]: value
-				};
+      tmp.buttonDisabled = false;
+      return tmp;
+    }
 
-		default:
-			return state;
-	}
+    default:
+      return state;
+  }
 };
-
-export { initialState, settingsReducer };

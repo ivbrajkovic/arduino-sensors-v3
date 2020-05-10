@@ -23,9 +23,12 @@ const Snack = ({ timeout = 4000 }) => {
   const dispatch = useDispatch();
 
   // Custome redux store selector
+  const showAllErrors = useSelector(store => store.ui.settings.showAllErrors);
+
+  // Custome redux store selector
   const error = useSelector(
-    store => store.ui.error,
-    left => /^data_|^user_/.test(left.code)
+    store => store.ui.error
+    // left => (!showAllErrors && /^data_|^user_/.test(left.code)) || false
   );
 
   // Close snack handler
@@ -42,8 +45,10 @@ const Snack = ({ timeout = 4000 }) => {
         vertical: 'bottom',
         horizontal: 'left'
       }}
-      // open={!!error.message}
-      open={!!error.message}
+      open={
+        (showAllErrors && !!error.message) ||
+        /^data_|^user_/.test(error.message)
+      }
       autoHideDuration={timeout}
       onClose={handleClose}
       TransitionComponent={TransitionRight}

@@ -104,6 +104,13 @@ class DB extends Database {
       this.all(sql.queries.data['select-last-n-rows'], params),
 
     /*********************************************************
+     * Select rows between dates
+     * @param {Array} params Sensor data
+     */
+    selectFromTo: params =>
+      this.all(sql.queries.data['select-from-to'], params),
+
+    /*********************************************************
      * Delete all sensor data from database
      */
     deleteAll: () => this.run(sql.queries.data['delete-all'])

@@ -15,9 +15,8 @@ import {
   setErrorAction,
   clearErrorsAction,
   setDarkThemeAction,
-  clearDarkThemeAction,
   setDevMenuAction,
-  clearDevMenuAction
+  setShowAllErrors
 } from './ui/ui-action';
 
 export {
@@ -30,7 +29,6 @@ export {
   setErrorAction,
   clearErrorsAction,
   setDarkThemeAction,
-  clearDarkThemeAction,
   setDevMenuAction,
-  clearDevMenuAction
+  setShowAllErrors
 };

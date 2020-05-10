@@ -21,7 +21,7 @@ const router = require('express').Router();
  * PRIVATE ROUTES
  ***********************************************/
 
-// Delete all sensor data route
+// Get last N rows of data
 router.get(
   '/:n',
   privateRoute,
@@ -29,9 +29,15 @@ router.get(
   asyncWrapper(DataController.selectLastNRows)
 );
 
-// TODO Authenticate arduino client
+// Get data between
+router.post(
+  '/fromto',
+  privateRoute,
+  asyncWrapper(validate(dataValidator.fromTo)),
+  asyncWrapper(DataController.selectFromTo)
+);
 
-// TODO Uncoment auth middleware
+// TODO Authenticate arduino client
 
 // Insert sensor data
 router.post(

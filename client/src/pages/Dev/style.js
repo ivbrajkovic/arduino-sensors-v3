@@ -6,7 +6,14 @@ import { makeStyles } from '@material-ui/core/styles';
 // const color = blueGrey[100];
 
 export default makeStyles(theme => ({
-	button: {
-		margin: theme.spacing(1)
-	}
+  button: {
+    margin: theme.spacing(1)
+  },
+  errorTextField: {
+    margin: theme.spacing(1)
+  },
+  textField: {
+    margin: theme.spacing(1),
+    width: theme.spacing(8)
+  }
 }));

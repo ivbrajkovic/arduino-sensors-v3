@@ -6,9 +6,8 @@ import React, { useState, useReducer, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   setDarkThemeAction,
-  clearDarkThemeAction,
   setDevMenuAction,
-  clearDevMenuAction,
+  setShowAllErrors,
   setErrorAction
 } from '../../store/actions';
 
@@ -30,6 +29,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
 // Material UI icons
 import ToysIcon from '@material-ui/icons/Toys';
+import ErrorIcon from '@material-ui/icons/Error';
 import BuildIcon from '@material-ui/icons/Build';
 import RouterIcon from '@material-ui/icons/Router';
 import UpdateIcon from '@material-ui/icons/Update';
@@ -76,13 +76,12 @@ const Settings = () => {
   const dispatch = useDispatch();
   const settings = useSelector(state => state.ui.settings);
 
-  const themeHandler = () =>
-    (settings.darkTheme && dispatch(clearDarkThemeAction())) ||
-    dispatch(setDarkThemeAction());
+  const themeHandler = e => dispatch(setDarkThemeAction(e.target.checked));
 
-  const devMenuHandler = () =>
-    (settings.devMenu && dispatch(clearDevMenuAction())) ||
-    dispatch(setDevMenuAction());
+  const devMenuHandler = e => dispatch(setDevMenuAction(e.target.checked));
+
+  const showAllErrorsHandler = e =>
+    dispatch(setShowAllErrors(e.target.checked));
 
   /************************************************************
    * Sate, reducer - local state
@@ -156,6 +155,14 @@ const Settings = () => {
           primary='Developer menu'
           onChange={devMenuHandler}
           checked={settings.devMenu}
+        />
+
+        {/* Show all errors switch */}
+        <SwitchListItem
+          Icon={ErrorIcon}
+          primary='Show all errors'
+          onChange={showAllErrorsHandler}
+          checked={settings.showAllErrors}
         />
       </List>
 

@@ -6,11 +6,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  logoutAction,
-  setDarkThemeAction,
-  clearDarkThemeAction
-} from '../../../store/actions';
+import { logoutAction, setDarkThemeAction } from '../../../store/actions';
 
 // Material UI
 import Fab from '@material-ui/core/Fab';
@@ -42,9 +38,7 @@ const Topbar = ({ open, drawerWidth, handleDrawerOpen }) => {
   });
   const darkTheme = useSelector(state => state.ui.settings.darkTheme);
 
-  const themeHandler = () =>
-    (darkTheme && dispatch(clearDarkThemeAction())) ||
-    dispatch(setDarkThemeAction());
+  const themeHandler = e => dispatch(setDarkThemeAction(!darkTheme));
 
   const createLinks = login => (
     <>

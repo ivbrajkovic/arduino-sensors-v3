@@ -103,6 +103,17 @@ content-type: application/json
 GET {{baseUrl}}/data/10
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Iml2YnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4ODk2NDE2MiwiZXhwIjoxNTg4OTcxMzYyfQ.1deJQrNIgJZ5Mo08zNmJUS3k6Sh08A5GUUbS8uDNYTc
 
+### Get data betwean dates
+
+POST {{baseUrl}}/data/fromto
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Iml2YnJhamtvdmljQGdtYWlsLmNvbSIsImlhdCI6MTU4OTEwNDU4MSwiZXhwIjoxNTg5MTExNzgxfQ.a5Ko41Vu49x3chCm0Fv7OfAFZLOI5kXs678GPWgOE-o
+content-type: application/json
+
+{
+  "from": "2020-01-01",
+  "to": "2020-05-07"
+}
+
 ### Delete all data
 
 DELETE {{baseUrl}}/data

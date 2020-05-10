@@ -7,12 +7,14 @@ import {
   CLEAR_ERROR,
   SET_LOADING,
   SET_DEV_MENU,
-  SET_DARK_THEME
+  SET_DARK_THEME,
+  SET_SHOW_ALL_ERRORS
 } from '../types';
 
 const initSettings = {
   darkTheme: false,
-  devMenu: false
+  devMenu: false,
+  showAllErrors: false
 };
 
 const initError = {
@@ -56,6 +58,16 @@ const uiReducer = (state = initState, action) => {
       return {
         ...state,
         settings: { ...state.settings, devMenu: action.payload }
+      };
+    /********************************************************/
+
+    /********************************************************
+     * Developer menu
+     */
+    case SET_SHOW_ALL_ERRORS:
+      return {
+        ...state,
+        settings: { ...state.settings, showAllErrors: action.payload }
       };
     /********************************************************/
 

@@ -14,20 +14,26 @@ module.exports = class DataService {
   static dbDir = config.db.dbDirAlias;
 
   /**************************************************************
-   * Insert sensor data into database
-   @param {*} data Sensor data
+   * Retreive last N arduino sensor data rows from database
+   @param {*} n Number of rows to retreive
    */
   static selectLastNRows = async n => {
-    // Database data object reference
     const db = (await require(this.dbDir)).data;
-
-    // Insert sensor data into datbase
     const data = await db.selectLastNRows([n]);
-
-    // Log status success
     debug('Sensor data retreived successfully');
+    return data;
+  };
+  /**************************************************************/
 
-    // Return number of rows affected
+  /**************************************************************
+   * Retreive arduino sensor data rows in range from database
+   @param {*} from Starting date
+   @param {*} to Ending date
+   */
+  static selectFromTo = async (from, to) => {
+    const db = (await require(this.dbDir)).data;
+    const data = await db.selectFromTo([from, to]);
+    debug('Sensor data retreived successfully');
     return data;
   };
   /**************************************************************/
@@ -37,21 +43,14 @@ module.exports = class DataService {
    @param {*} data Sensor data
    */
   static insertSensorData = async ({ arduino, co2, humidity, temperature }) => {
-    // Database data object reference
     const { data } = await require(this.dbDir);
-
-    // Insert sensor data into datbase
     const { changes } = await data.insert([
       arduino,
       co2,
       humidity,
       temperature
     ]);
-
-    // Log status success
     debug('Data from sensors inserted successfully');
-
-    // Return number of rows affected
     return { changes };
   };
   /**************************************************************/
@@ -60,16 +59,9 @@ module.exports = class DataService {
    * Delete all data sensors from database
    */
   static deleteAllSensorData = async () => {
-    // Database data object reference
     const { data } = await require(this.dbDir);
-
-    // Insert sensor data into datbase
     const { changes } = await data.deleteAll();
-
-    // Log status success
     debug('All sensors data deleted successfully');
-
-    // Return number of rows affected
     return { changes };
   };
   /**************************************************************/

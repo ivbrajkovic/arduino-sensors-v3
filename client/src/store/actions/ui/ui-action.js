@@ -7,7 +7,8 @@ import {
   SET_ERROR,
   CLEAR_ERROR,
   SET_DARK_THEME,
-  SET_DEV_MENU
+  SET_DEV_MENU,
+  SET_SHOW_ALL_ERRORS
 } from '../../types';
 
 const unknownError = {
@@ -32,20 +33,19 @@ export const setUnknownErrorAction = () => ({
 export const clearErrorsAction = () => ({ type: CLEAR_ERROR });
 
 // theme
-export const setDarkThemeAction = () => ({
+export const setDarkThemeAction = show => ({
   type: SET_DARK_THEME,
-  payload: true
-});
-
-export const clearDarkThemeAction = () => ({
-  type: SET_DARK_THEME,
-  payload: false
+  payload: show
 });
 
 // developer menu
-export const setDevMenuAction = () => ({ type: SET_DEV_MENU, payload: true });
-
-export const clearDevMenuAction = () => ({
+export const setDevMenuAction = show => ({
   type: SET_DEV_MENU,
-  payload: false
+  payload: show
+});
+
+// show all errors
+export const setShowAllErrors = show => ({
+  type: SET_SHOW_ALL_ERRORS,
+  payload: show
 });

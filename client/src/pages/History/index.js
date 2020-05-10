@@ -1,9 +1,12 @@
-// History page
+/**
+ * History page
+ */
 
 import React, { useState, useEffect, useRef } from 'react';
 
 // Redux
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setErrorAction } from '../../store/actions';
 
 // Material UI
 import Fade from '@material-ui/core/Fade';
@@ -19,14 +22,11 @@ import HighchartsReact from 'highcharts-react-official';
 // Chart options
 import makeOptions from './options';
 
-// Firebase
-import firebase from '../../firebase/firebase';
-
-// Hooks
-import { useRedirectToLogin } from '../../hooks';
-
 // Custom styles
 import useStyles from './style';
+
+// Helper fnc
+import { fetchHelper } from '../../helper';
 
 // Set chart subtitle
 const getSubtitle = date => {
@@ -42,136 +42,156 @@ const timeout = 1000;
 // Chart options
 const options = makeOptions();
 
-const History = () => {
-  console.log('TCL: History -> History()');
+// Default dates
+const getDefaultDates = () => {
+  let from = new Date();
+  from.setMonth(from.getMonth() - 1);
+  from = from.toISOString().substring(0, 10);
 
-  // Redirect to loggin
-  const login = useRedirectToLogin();
+  let to = new Date().toISOString().substring(0, 10);
+  return { from, to };
+};
+
+const History = () => {
+  console.log('History -> page');
+
   const classes = useStyles();
   const maxXS = useMediaQuery('(max-width:599.99px)');
 
   // Refs
   const chartRef = useRef();
 
+  /************************************************************
+   * Redux - global state
+   ************************************************************/
+
+  const dispatch = useDispatch();
+  const darkTheme = useSelector(state => state.ui.settings.darkTheme);
+
+  // Change chart labels color when app theme is changed
+  useEffect(() => {
+    const titleColor = darkTheme ? '#ffffff' : '#666666';
+    const color = darkTheme ? '#dedede' : '#333333';
+    chartRef.current.chart.title.update(
+      { style: { color: titleColor } },
+      false
+    );
+    chartRef.current.chart.subtitle.update({ style: { color: color } }, false);
+    chartRef.current.chart.xAxis[0].update(
+      { labels: { style: { color: color } } },
+      false
+    );
+    chartRef.current.chart.yAxis[0].update(
+      { labels: { style: { color: color } } },
+      false
+    );
+    chartRef.current.chart.legend.update(
+      { itemStyle: { color: titleColor } },
+      false
+    );
+    chartRef.current.chart.redraw();
+  }, [darkTheme]);
+
   // States
-  const [date, setDate] = useState({
-    from: new Date().toISOString().substring(0, 10),
-    to: new Date().toISOString().substring(0, 10)
-  });
+  const [dates, setDates] = useState(getDefaultDates());
 
   // Handle date changes
   const handleChange = e => {
-    console.log('TCL: History -> handleChange()');
-
-    const name = e.target.name;
-    const value = e.target.value;
-    setDate({
-      ...date,
-      [name]: value
-    });
+    const { name, value } = e.target;
+    setDates({ ...dates, [name]: value });
   };
-
-  // Change chart labels color when app theme is changed
-  const darkTheme = useSelector(state => state.ui.settings.darkTheme);
-  useEffect(() => {
-    if (login) {
-      const titleColor = darkTheme ? '#ffffff' : '#666666';
-      const color = darkTheme ? '#dedede' : '#333333';
-      chartRef.current.chart.title.update(
-        { style: { color: titleColor } },
-        false
-      );
-      chartRef.current.chart.subtitle.update(
-        { style: { color: color } },
-        false
-      );
-      chartRef.current.chart.xAxis[0].update(
-        { labels: { style: { color: color } } },
-        false
-      );
-      chartRef.current.chart.yAxis[0].update(
-        { labels: { style: { color: color } } },
-        false
-      );
-      chartRef.current.chart.legend.update(
-        { itemStyle: { color: titleColor } },
-        false
-      );
-      chartRef.current.chart.redraw();
-    }
-  }, [login, darkTheme]);
 
   // Get data from firestore
   useEffect(() => {
-    if (login) {
-      // getData(date, data => {
-      firebase.getHistoryChart(date, data => {
+    (async () => {
+      try {
+        const data = await fetchHelper({
+          url: '/data/fromto',
+          method: 'POST',
+          token: window.localStorage.getItem('token'),
+          data: dates
+        });
+
+        const co2 = [],
+          humidity = [],
+          temperature = [];
+
+        data.data.forEach(el => {
+          co2.push([el.date, +el.co2]);
+          humidity.push([el.date, +el.humidity]);
+          temperature.push([el.date, +el.temperature]);
+        });
+
+        // Set chart title
         chartRef.current.chart.subtitle.update(
-          { text: getSubtitle(date) },
+          {
+            text: getSubtitle(dates)
+          },
           false
         );
-        chartRef.current.chart.series[0].setData(data[0], false);
-        chartRef.current.chart.series[1].setData(data[1], false);
-        chartRef.current.chart.series[2].setData(data[2], false);
-        chartRef.current.chart.redraw();
-      });
-    }
-  }, [login, date]);
 
-  if (!login) return null;
-  else
-    return (
-      <Fade in={true} timeout={timeout} style={{ transitionDelay: '250ms' }}>
-        <Paper elevation={12} className={classes.paper}>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Grid
-                container
-                spacing={3}
-                justify={maxXS ? 'center' : 'flex-start'}
-                // direction={maxXS ? 'column' : 'row'}
-                // alignItems='center'
-              >
-                <Grid item>
-                  <TextField
-                    name='from'
-                    label='From'
-                    type='date'
-                    value={date.from}
-                    className={classes.textField}
-                    InputLabelProps={{
-                      shrink: true
-                    }}
-                    onChange={handleChange}
-                  />
-                </Grid>
-                <Grid item>
-                  <TextField
-                    name='to'
-                    label='To'
-                    type='date'
-                    value={date.to}
-                    className={classes.textField}
-                    InputLabelProps={{
-                      shrink: true
-                    }}
-                    onChange={handleChange}
-                  />
-                </Grid>
+        // Set chart data
+        chartRef.current.chart.series[0].setData(temperature, false);
+        chartRef.current.chart.series[1].setData(humidity, false);
+        chartRef.current.chart.series[2].setData(co2, false);
+        chartRef.current.chart.redraw();
+      } catch (error) {
+        dispatch(setErrorAction(error));
+      }
+    })();
+  }, [dates]);
+
+  return (
+    <Fade in={true} timeout={timeout} style={{ transitionDelay: '250ms' }}>
+      <Paper elevation={12} className={classes.paper}>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Grid
+              container
+              spacing={3}
+              justify={maxXS ? 'center' : 'flex-start'}
+              // direction={maxXS ? 'column' : 'row'}
+              // alignItems='center'
+            >
+              <Grid item>
+                <TextField
+                  name='from'
+                  label='From'
+                  type='date'
+                  value={dates.from}
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true
+                  }}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  name='to'
+                  label='To'
+                  type='date'
+                  value={dates.to}
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true
+                  }}
+                  onChange={handleChange}
+                />
               </Grid>
             </Grid>
-            <Grid item xs={12}>
-              {/* {options && <HighchartsReact highcharts={Highcharts} options={options} />} */}
-              <HighchartsReact
-                ref={chartRef}
-                highcharts={Highcharts}
-                options={options}
-              />
-            </Grid>
           </Grid>
-        </Paper>
-      </Fade>
-    );
+          <Grid item xs={12}>
+            <HighchartsReact
+              ref={chartRef}
+              highcharts={Highcharts}
+              options={options}
+            />
+          </Grid>
+        </Grid>
+      </Paper>
+    </Fade>
+  );
 };
 
 export default History;

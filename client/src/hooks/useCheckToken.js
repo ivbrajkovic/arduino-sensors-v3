@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 import { tokenAction } from '../store/actions';
 
 const useCheckToken = () => {
-  console.log('useCheckToken -> useCheckToken');
+  // console.log('Hook -> useCheckToken');
   const dispatch = useDispatch();
 
   useEffect(() => {

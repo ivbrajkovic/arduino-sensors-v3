@@ -29,12 +29,10 @@ import useStyles from './style';
 import { fetchHelper } from '../../helper';
 
 // Set chart subtitle
-const getSubtitle = date => {
-  console.log('TCL: getSubtitle()');
-  return `from ${new Date(date.from).toLocaleDateString()} to ${new Date(
+const getSubtitle = date =>
+  `from ${new Date(date.from).toLocaleDateString()} to ${new Date(
     date.to
   ).toLocaleDateString()}`;
-};
 
 // Animation timeout
 const timeout = 1000;

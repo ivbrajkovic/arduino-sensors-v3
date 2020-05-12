@@ -1,4 +1,6 @@
-// User reducers
+/**
+ * User reducer
+ */
 
 import {
   SET_USER,
@@ -14,6 +16,8 @@ const initialState = {
 };
 
 const userReducer = (state = initialState, action) => {
+  console.log('uiReducer -> action.type', action.type);
+
   switch (action.type) {
     case SET_USER:
       return { login: true, details: action.payload };

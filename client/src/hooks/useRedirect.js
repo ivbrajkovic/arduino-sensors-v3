@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const useRedirect = () => {
-  console.log('useRedirect -> hook');
+  // console.log('useRedirect -> hook');
 
   const history = useHistory();
   const login = useSelector(state => state.user.login);

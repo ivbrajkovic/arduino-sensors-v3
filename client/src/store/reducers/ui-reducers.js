@@ -1,4 +1,6 @@
-// Ui reducers
+/**
+ * UI reducer
+ */
 
 import {
   LOGIN_USER,

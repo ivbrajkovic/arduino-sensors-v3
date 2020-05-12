@@ -21,17 +21,14 @@ const unknownError = {
 
 // Loading
 export const setLoadingAction = () => ({ type: SET_LOADING, payload: true });
-
 export const clearLoadingAction = () => ({ type: SET_LOADING, payload: false });
 
 // error
 export const setErrorAction = error => dispatch => {
+  // If token error logout user
   if (/^jwt_/.test(error.code)) dispatch(logoutAction());
   dispatch({ type: SET_ERROR, payload: error });
 };
-// export const setErrorAction = error => {
-//   return { type: SET_ERROR, payload: error };
-// };
 
 export const setUnknownErrorAction = () => ({
   type: SET_ERROR,

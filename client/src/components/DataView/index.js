@@ -14,21 +14,20 @@ import Chart from '../Highcharts';
 import useStyles from './style';
 
 const DataView = ({
-  title = null,
-  size = 300,
-  symbol = null,
-  priColor = null,
-  secColor = null,
-  elevation = 4,
+  size = 320,
+  elevation = 12,
+  title,
+  chartTitle,
+  symbol,
+  priColor,
+  secColor,
+  data,
   limits,
-  device = 'Device 1',
   initialData,
-  data = null,
   maxItems = 10,
-  chartBand = null,
-  chartTitle = false
+  chartBand
 }) => {
-  // console.log('DataView -> component');
+  // console.log('DataView -> component', title);
 
   const classes = useStyles();
 
@@ -40,11 +39,11 @@ const DataView = ({
           <SensorMeter
             size={size}
             title={title}
-            value={(data && data.y) || 0}
             symbol={symbol}
             priColor={priColor}
             secColor={secColor}
             limits={limits}
+            value={(data && data.y) || 0}
           />
         </Grid>
 
@@ -52,13 +51,12 @@ const DataView = ({
         <Grid item xs={12} sm={9} /* style={{ height: 200 }} */>
           <Chart
             title={(chartTitle && title) || null}
-            initialData={initialData}
-            data={data}
-            symbol={symbol}
-            device={device}
+            // symbol={symbol}
             band={chartBand}
             color={priColor}
             maxItems={maxItems}
+            data={data}
+            initialData={initialData}
           />
         </Grid>
       </Grid>

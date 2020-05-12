@@ -9,7 +9,7 @@ const Database = require('sqlite-async');
 const config = require('@api/config');
 
 // Read query files in "./sql"
-const sql = require('./utils/read-sql').read(__dirname + '/sql');
+const sql = require('./sql/utils/read-sql').read(__dirname + '/sql');
 
 // Print sueries object if debug mode
 config.db.debugSQL && sql.print();
@@ -91,6 +91,7 @@ class DB extends Database {
      * @param {Array} params Sensor data
      */
     insert: params => this.run(sql.queries.data.insert, params),
+
     /*********************************************************
      * Select last nth rows from sensor data
      * @param {Array} params Number of rows to select

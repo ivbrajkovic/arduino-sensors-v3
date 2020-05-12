@@ -30,7 +30,7 @@ import { useRedirect, useClearErrorsOnExit } from '../../hooks';
 import { useErrorSelector, formatErrors } from './helper';
 
 const Login = () => {
-  console.log('Login -> page');
+  // console.log('Login -> page');
 
   // If loggedin, redirect to home page
   useRedirect();

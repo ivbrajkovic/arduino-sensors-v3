@@ -5,7 +5,7 @@
 // React / Redux
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setErrorAction, logoutAction } from '../../store/actions';
+import { setErrorAction } from '../../store/actions';
 
 // Material UI
 import Fade from '@material-ui/core/Fade';
@@ -19,16 +19,16 @@ import orange from '@material-ui/core/colors/orange';
 // Components
 import DataView from '../../components/DataView';
 
-// Custom styles
-import useStyles from './style';
-
 // Helper fncs
 import { randomNum, fetchHelper } from '../../helper';
 
 // Websocket
-// import io from 'socket.io-client';
 import { createSocket } from '../../socket';
 
+// Custom styles
+import useStyles from './style';
+
+// Insert random sensor data into database
 const addData = async dispatch => {
   try {
     fetchHelper({
@@ -48,17 +48,15 @@ const addData = async dispatch => {
 };
 
 // Default constants
-const size = 320;
 const timeout = 1000;
 
 const Home = () => {
-  console.log('Home -> page');
+  // console.log('Home -> page');
 
+  const socketRef = useRef();
   const classes = useStyles();
   const dispatch = useDispatch();
   const settings = useSelector(state => state.ui.settings);
-
-  const socketRef = useRef();
 
   // Chart data
   const [data, setData] = useState({});
@@ -144,8 +142,7 @@ const Home = () => {
 
   return (
     <Grid container direction='column' spacing={3}>
-      {/* {console.log('Home -> render')} */}
-
+      {/* ¨Only for debug */}
       {settings.devMenu && (
         <div className={classes.dev}>
           <div className={classes.overlay} />
@@ -180,9 +177,6 @@ const Home = () => {
       <Fade in={true} timeout={timeout} style={{ transitionDelay: '500ms' }}>
         <Grid item>
           <DataView
-            chartTitle
-            size={size}
-            elevation={12}
             title={'Temperature'}
             symbol={176}
             initialData={initialData.temperature}
@@ -204,8 +198,6 @@ const Home = () => {
         <Grid item>
           <DataView
             chartTitle
-            size={size}
-            elevation={12}
             title={'Humidity'}
             //symbol={176}
             initialData={initialData.humidity}
@@ -227,8 +219,6 @@ const Home = () => {
         <Grid item>
           <DataView
             chartTitle
-            size={size}
-            elevation={12}
             title={'CO2'}
             //symbol={11823}
             initialData={initialData.co2}

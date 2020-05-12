@@ -20,7 +20,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import DeveloperModeIcon from '@material-ui/icons/DeveloperMode';
 
 // Components
-import NavButton from '../../../components/NavButton';
+import SidebarButton from '../../../components/SidebarButton';
 
 // Custom styles
 import useStyles from './style';
@@ -55,12 +55,12 @@ const Sidebar = ({ open, drawerWidth, handleDrawerClose }) => {
 
       {/* Button links */}
       <List>
-        <NavButton icon={DashboardIcon} primary='Dashboard' to='/' />
-        <NavButton icon={DeveloperModeIcon} primary='Developer' to='/dev' />
-        <NavButton icon={SettingsIcon} primary='Settings' to='/settings' />
-        <NavButton icon={HistoryIcon} primary='History' to='/history' />
+        <SidebarButton icon={DashboardIcon} primary='Dashboard' to='/' />
+        <SidebarButton icon={DeveloperModeIcon} primary='Developer' to='/dev' />
+        <SidebarButton icon={SettingsIcon} primary='Settings' to='/settings' />
+        <SidebarButton icon={HistoryIcon} primary='History' to='/history' />
         <Divider />
-        <NavButton icon={InfoIcon} primary='About' to='/about' />
+        <SidebarButton icon={InfoIcon} primary='About' to='/about' />
       </List>
     </Drawer>
   );

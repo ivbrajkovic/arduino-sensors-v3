@@ -13,7 +13,7 @@ import Slide from '@material-ui/core/Slide';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
-// Transition
+// Transition slide right
 const TransitionRight = props => <Slide {...props} direction='right' />;
 
 const Snack = ({ timeout = 4000 }) => {

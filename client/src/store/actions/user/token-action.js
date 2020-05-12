@@ -13,8 +13,6 @@ import { fetchHelper } from '../../../helper';
 
 // Login user and update store
 const tokenAction = token => async dispatch => {
-  console.log('tokenAction -> tokenAction');
-
   // Start spinner
   dispatch(setLoadingAction());
 

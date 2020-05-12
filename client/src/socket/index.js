@@ -15,6 +15,7 @@ export const createSocket = ({ url, events }) => {
     socket.emit('authenticate', window.localStorage.token)
   );
 
+  // Get event handlers from prop
   for (const [event, handler] of Object.entries(events))
     socket.on(event, handler);
 

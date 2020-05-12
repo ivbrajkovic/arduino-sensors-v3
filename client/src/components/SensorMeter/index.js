@@ -1,4 +1,8 @@
-import clsx from 'clsx';
+/**
+ * Sensor data meter
+ */
+
+// Recat
 import React, { useState, useEffect } from 'react';
 
 // Material UI
@@ -7,11 +11,6 @@ import Typography from '@material-ui/core/Typography';
 
 // Custom styles
 import useStyles from './style';
-
-// const defaultLimits = {
-// 	max: 0,
-// 	min: 0
-// };
 
 const SensorMeter = ({
   title,
@@ -22,7 +21,7 @@ const SensorMeter = ({
   priColor,
   secColor
 }) => {
-  // console.log('TCL: SensorMeter');
+  // console.log('SensorMeter -> component');
 
   const classes = useStyles({ colors: [priColor, secColor] });
 
@@ -33,7 +32,6 @@ const SensorMeter = ({
   const charSymbol = String.fromCharCode(symbol);
 
   useEffect(() => {
-    // console.log('TCL: SensorMeter -> useEffect');
     if (value < min) setMin(value);
     else if (value > max) setMax(value);
     // eslint-disable-next-line
@@ -66,19 +64,15 @@ const SensorMeter = ({
           variant='static'
           size={size * 0.5}
           value={value}
-          className={clsx({
-            [classes.primary]: !error,
-            [classes.error]: error
-          })}
+          className={error ? classes.error : classes.primary}
         />
 
         <Typography
           variant='h4'
           style={{ marginLeft: (symbol && 8) || 0 }}
-          className={clsx(classes.center, {
-            [classes.primary]: !error,
-            [classes.error]: error
-          })}
+          className={`${classes.center} ${
+            error ? classes.error : classes.primary
+          }`}
         >
           {value + charSymbol}
         </Typography>

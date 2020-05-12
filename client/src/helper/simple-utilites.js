@@ -1,14 +1,16 @@
+/**
+ * Simple utility functions
+ */
+
 // Log object to console
-export const logObj = object =>
-  console.log('TCL: object', JSON.stringify(object, null, 2));
+export const logObj = object => console.log(JSON.stringify(object, null, 2));
 
 // Check if object is empty
 export const isEmptyObj = object => !Object.keys(object).length;
 
 // Format local datetime
-export const formatDatetime = date => {
-  const d = date || new Date();
-  return d.toLocaleTimeString('hr-HR', {
+export const formatDatetime = date =>
+  (date || new Date()).toLocaleTimeString('hr-HR', {
     year: 'numeric',
     // month: 'short',
     month: '2-digit',
@@ -17,7 +19,6 @@ export const formatDatetime = date => {
     hour: '2-digit',
     minute: '2-digit'
   });
-};
 
 // Format local time
 export const formatTime = date => {
@@ -38,12 +39,8 @@ export const formatTime = date => {
 // Random number from 0 to N
 export const randomNum = N => Math.floor(Math.random() * N);
 
-/**
- * Check if value is a digit
- */
+// Check if value is a digit
 export const isNumber = key => /[0-9]/.test(key);
 
-/**
- * Remove leading zeros from string
- */
+// Remove leading zeros from string
 export const trimLeadingZeros = str => str.replace(/^0+/, '');

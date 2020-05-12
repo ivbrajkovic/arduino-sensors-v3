@@ -67,6 +67,8 @@ const updateArduino = async (data, dispatch) => {
 
 // Settings component
 const Settings = () => {
+  // console.log('Settings -> page');
+
   // Styles
   const classes = useStyles();
 
@@ -177,8 +179,10 @@ const Settings = () => {
           <ListItemText primary='Select device' />
           <ListItemSecondaryAction>
             <Select value={selected} onChange={selectChange}>
-              {state.arduinos.map(el => (
-                <MenuItem value={el.arduino}>Arduino {el.arduino}</MenuItem>
+              {state.arduinos.map((el, i) => (
+                <MenuItem key={i} value={i}>
+                  Arduino {el.arduino}
+                </MenuItem>
               ))}
             </Select>
           </ListItemSecondaryAction>
@@ -213,7 +217,6 @@ const Settings = () => {
       {/* Sensors list*/}
       <List subheader={<ListSubheader>Sensors</ListSubheader>}>
         {/* Update interval */}
-
         <SensorListItem
           Icon={UpdateIcon}
           name='updateInterval'
@@ -246,6 +249,7 @@ const Settings = () => {
           lowerLimit={state.arduinos[selected]?.humidity.min}
           dispatch={dispatchReducer}
         />
+
         {/* CO2 sensor settings */}
         <SensorListItem
           nested
@@ -258,6 +262,7 @@ const Settings = () => {
           dispatch={dispatchReducer}
         />
 
+        {/* Save button */}
         <ListItem className={classes.buttonContainer}>
           <Button
             disabled={state.buttonDisabled}

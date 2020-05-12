@@ -10,8 +10,7 @@ import { useDispatch } from 'react-redux';
 import { clearErrorsAction } from '../store/actions';
 
 const useClearErrorsOnExit = () => {
-  console.log('Hook -> useClearErrorsOnExit');
-
+  // console.log('Hook -> useClearErrorsOnExit');
   const dispatch = useDispatch();
 
   useEffect(() => {

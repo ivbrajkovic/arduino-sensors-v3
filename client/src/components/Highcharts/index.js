@@ -1,8 +1,9 @@
-// Data chart view
+/**
+ * Data chart view
+ */
 
+// React / Redux
 import React, { useState, useRef, useEffect } from 'react';
-
-// Redux
 import { useSelector } from 'react-redux';
 
 // Highcharts
@@ -48,11 +49,10 @@ const Chart = ({
     const y = (data && data.y) || 0;
     const serie =
       (chartRef.current && chartRef.current.chart.series[0]) || null;
-    // if (!initRef.current)
+
     serie && serie.data.length >= maxItems
       ? serie.addPoint([x, y], true, true)
       : serie.addPoint([x, y]);
-    // else serie.setData(data);
   }, [data, maxItems]);
 
   // Change chart labels color when app theme is changed

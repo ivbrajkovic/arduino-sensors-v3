@@ -32,7 +32,7 @@ import { useRedirect, useClearErrorsOnExit } from '../../hooks';
 import { useErrorSelector, formatErrors } from './helper';
 
 const Signup = () => {
-  console.log('Signup -> Signup page');
+  // console.log('Signup -> Signup page');
 
   // If loggedin, redirect to home page
   useRedirect();

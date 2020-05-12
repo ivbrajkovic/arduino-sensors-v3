@@ -1,8 +1,8 @@
 /**
- * Fetch helper
+ * Fetch API helper
  */
 
-// Base API url
+// Get base API url from env
 const baseUrl = process.env.REACT_APP_API_URL;
 
 /**
@@ -10,7 +10,6 @@ const baseUrl = process.env.REACT_APP_API_URL;
  * @param {object} param0 Url, method, token, data
  */
 const fetchHelper = async ({ url, method = 'GET', token, data }) => {
-  console.log('fetchHelper -> url', url);
   try {
     // Request headers
     let headers = {};
@@ -27,23 +26,10 @@ const fetchHelper = async ({ url, method = 'GET', token, data }) => {
     const json = await res.json();
 
     // If status OK, set user and token
-    if (json.status === 'ok') {
-      // Set local storage
-      // window.localStorage.setItem('token', json.token || '');
-      // Dispatch user data
-      // dispatch({ type: LOGIN_USER, payload: json.user || {} });
-      return json;
-    }
+    if (json.status === 'ok') return json;
 
-    // Dispatch error if something is wrong
-    // else if (json.status === 'error') {
-    // const { code = '', message = '', details = [] } = json;
-    // dispatch(setErrorAction({ code, message, details }));
+    // Throw response
     throw json;
-    // }
-
-    // Set unknown error
-    // else dispatch(setUnknownErrorAction());
   } catch (error) {
     // eslint-disable-next-line
     throw {
@@ -51,9 +37,6 @@ const fetchHelper = async ({ url, method = 'GET', token, data }) => {
       message: error.message || 'Unknown error',
       details: error.details || []
     };
-    // dispatch(
-    //   setErrorAction({ code: 'unknown_error', message: error.toString() })
-    // );
   }
 };
 

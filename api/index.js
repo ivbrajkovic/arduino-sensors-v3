@@ -9,21 +9,13 @@ require('dotenv').config();
 require('module-alias/register');
 
 // Debug
-const debug = new require('debug')('api:server');
+const debug = require('debug')('api:server');
 
 // Configuration
 const config = require('@api/config');
 
-// Express app
-// const app = require('@api/app');
-
-// Create HTTP server because of SocketIO
-// const server = require('http').createServer(app);
-
-// Create socketIO
-// require('@api/socket').createSocketIO(server);
-
-const { server, broadcast } = require('@api/socket');
+// Create server in socket module
+const { server } = require('@api/socket');
 
 // Wrap in async call because of async database module
 (async () => {
@@ -40,13 +32,8 @@ const { server, broadcast } = require('@api/socket');
     server.listen(config.app.port, () =>
       console.log(`Server is listening at ${config.app.port}`)
     );
-
-    // setInterval(() => {
-    //   broadcast({ data: new Date().toTimeString() });
-    //   console.log('broadcast:', new Date().toTimeString());
-    // }, 5000);
   } catch (error) {
-    console.log(error);
+    debug(`Server error: ${error}`);
     throw error;
   }
 })();

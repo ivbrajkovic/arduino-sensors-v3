@@ -3,7 +3,7 @@
  */
 
 // Debug
-var debug = new require('debug')('app:controllers:AuthController');
+var debug = new require('debug')('api:controllers:AuthController');
 
 // Config
 const config = require('@api/config');

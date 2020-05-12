@@ -3,7 +3,7 @@
  */
 
 // Debug
-const debug = new require('debug')('app:services:DataService');
+const debug = new require('debug')('api:services:DataService');
 
 // Config
 const config = require('@api/config');

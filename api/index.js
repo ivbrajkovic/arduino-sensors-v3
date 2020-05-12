@@ -9,7 +9,7 @@ require('dotenv').config();
 require('module-alias/register');
 
 // Debug
-const debug = new require('debug')('app:server');
+const debug = new require('debug')('api:server');
 
 // Configuration
 const config = require('@api/config');

@@ -3,7 +3,7 @@
  */
 
 // Debug
-const debug = new require('debug')('app:middleware:privateRoute');
+const debug = new require('debug')('api:middleware:privateRoute');
 
 // Auth service
 const { AuthService } = require('@api/services');

@@ -6,7 +6,7 @@
 const app = require('express')();
 
 // Debug module
-const debug = new require('debug')('app:express');
+const debug = require('debug')('api:express');
 
 // Config module
 const config = require('@api/config');

@@ -66,6 +66,11 @@ module.exports = {
     message: 'JWT unknown error',
     statusCode: 401
   },
+  JWT_TIMEOUT: {
+    code: 'jwt_timeout',
+    message: 'JWT Authentication timeout error',
+    statusCode: 401
+  },
 
   // Not found
   PAGE_NOT_FOUND: {

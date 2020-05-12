@@ -3,7 +3,7 @@
  */
 
 // Debug
-const debug = new require('debug')('app:services:AuthService');
+const debug = new require('debug')('api:services:AuthService');
 
 // JWT
 const jwt = require('jsonwebtoken');
@@ -29,6 +29,25 @@ module.exports = class AuthService {
    */
   static createJWT = obj =>
     jwt.sign(obj, this.jwtSecret, { expiresIn: this.jwtExp });
+
+  static decodeJWT = token => {
+    try {
+      // Decode token
+      const decoded = jwt.verify(token, this.jwtSecret);
+
+      // Log decoded token
+      debug(decoded);
+
+      // Return decoded token
+      return decoded;
+    } catch (error) {
+      throw new ErrorHandler(
+        error.name === jwt.TokenExpiredError.name
+          ? errorMessages.JWT_TOKEN_EXPIRED
+          : errorMessages.JWT_UNKNOWN
+      );
+    }
+  };
 
   /**
    * Async verify JWT

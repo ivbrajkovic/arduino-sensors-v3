@@ -6,7 +6,7 @@
 const { env } = require('@api/utils');
 
 module.exports = {
-  debug: env('DEBUG', 'app:*'),
+  debug: env('DEBUG', 'api:*'),
   env: env('NODE_ENV', 'development'),
   port: env('PORT', 3000),
   serveDir: env('SERVE_DIR', 'build'),

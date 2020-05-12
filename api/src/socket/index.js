@@ -1,14 +1,17 @@
-// Socket IO module
+/**
+ * Socket IO
+ */
 
 // Debug
-const debug = new require('debug')('app:socketio');
+const debug = require('debug')('api:socketio');
+
+const { ErrorHandler, errorMessages } = require('@api/errors');
 
 // Express app
 const app = require('@api/app');
 
 // Create HTTP server because of SocketIO
 const server = require('http').createServer(app);
-// const server = require('http').createServer(app);
 
 // Auth service
 const { AuthService } = require('@api/services');
@@ -32,34 +35,51 @@ const io = require('socket.io')(server);
 
 // io.use((socket, next) => console.log('next(): OK'));
 
+const emitUnauthorized = (socket, error) => {
+  debug(`Socket ${socket.id} is unauthorized`);
+  socket.emit('unauthorized', error);
+  socket.disconnect(true);
+};
+
 io.on('connection', async socket => {
-  try {
-    socket.emit('hello', 'Hello from server');
+  debug('client connected: ' + socket.id);
 
-    // const decoded = await AuthService.verifyJWT(socket.handshake);
-    debug('client connected: ' + socket.id);
+  let authenticated = false;
+  let timeout = 3000;
+  let timer;
 
-    socket.on('disconnect', function () {
-      debug('client disconeccted: ' + socket.id);
+  socket.emit('authenticate');
+  timer = setTimeout(() => {
+    !authenticated &&
+      emitUnauthorized(socket, new ErrorHandler(errorMessages.JWT_TIMEOUT));
+  }, timeout);
 
-      // io.emit('user disconnected');
-    });
+  socket.on('authenticate', async token => {
+    debug(`Socket ${socket.id} token: ${token}`);
+    try {
+      // await AuthService.verifyJWT(socket.handshake);
+      await AuthService.decodeJWT(token);
+      authenticated = true;
+      clearTimeout(timer);
+    } catch (error) {
+      debug('error', error);
+      emitUnauthorized(socket, error);
+    }
+  });
 
-    socket.on('data', function (data) {
-      console.log('data', data);
-      // debug('client: ' + data);
+  socket.on('disconnect', () => {
+    debug(`Socket ${socket.id} is disconeccted`);
+    clearTimeout(timer);
+  });
 
-      // io.emit('user disconnected');
-    });
-  } catch (error) {
-    //socket.emit('unauthorized');
-    //next(error);
+  socket.on('error', error => {
+    debug(`Socket ${socket.id} error: ${error}`);
     socket.disconnect(true);
-  }
+    clearTimeout(timer);
+  });
 });
 
-const broadcast = data => {
-  io.emit('data', data);
-};
+// Broadcast to clients
+const broadcast = data => io.emit('data', data);
 
 module.exports = { server, broadcast };

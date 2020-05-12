@@ -5,7 +5,7 @@
 // React / Redux
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setErrorAction } from '../../store/actions';
+import { setErrorAction, logoutAction } from '../../store/actions';
 
 // Material UI
 import Fade from '@material-ui/core/Fade';
@@ -118,16 +118,17 @@ const Home = () => {
 
         socketRef.current = createSocket({
           url: 'http://localhost:3000',
-          onConnect: () => console.log('Socket connected'),
-          onDisconnect: () => console.log('Socket disconnected'),
-          onData: ({ date, arduino, temperature, humidity, co2 }) => {
-            setData({
-              date: date,
-              arduino: arduino,
-              temperature: { x: date, y: temperature },
-              humidity: { x: date, y: humidity },
-              co2: { x: date, y: co2 }
-            });
+          events: {
+            unauthorized: error => dispatch(setErrorAction(error)),
+            data: ({ date, arduino, temperature, humidity, co2 }) => {
+              setData({
+                date: date,
+                arduino: arduino,
+                temperature: { x: date, y: temperature },
+                humidity: { x: date, y: humidity },
+                co2: { x: date, y: co2 }
+              });
+            }
           }
         });
       } catch (error) {

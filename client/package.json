@@ -7,7 +7,7 @@
 	"dependencies": {
 		"@material-ui/core": "^4.9.14",
 		"@material-ui/icons": "^4.9.1",
-		"highcharts": "^8.1.0",
+		"highcharts": "^9.0.0",
 		"highcharts-react-official": "^3.0.0",
 		"jss-plugin-extend": "^10.1.1",
 		"react": "^16.13.1",
